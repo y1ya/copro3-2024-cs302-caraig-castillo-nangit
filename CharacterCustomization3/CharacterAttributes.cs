@@ -33,12 +33,12 @@ namespace CharacterCustomization
             tools = "None";
             accessories = "None";
             clothes = "None";
-            strength = 1;
-            luck = 1;
-            speed = 1;
-            endurance = 1;
-            dexterity = 1;
-            intelligence = 1;
+            strength = 0;
+            luck = 0;
+            speed = 0;
+            endurance = 0;
+            dexterity = 0;
+            intelligence = 0;
         }
         public string GetPositiveEffect() => positiveEffect;
         public string GetNegativeEffect() => negativeEffect;
@@ -130,40 +130,55 @@ namespace CharacterCustomization
 
         private void AllocateStats()
         {
-            int pointsRemaining = 7;
+            int pointsRemaining = 10;
 
             Console.WriteLine("\n=== Allocate Stats ===");
 
-            attributes.SetStrength(AllocatePoints("Strength", pointsRemaining));
-            pointsRemaining -= attributes.GetStrength();
+            while (pointsRemaining > 0)
+            {
+                Console.WriteLine($"\nYou have {pointsRemaining} points remaining.");
+                attributes.SetStrength(attributes.GetStrength() + AllocateAttributePoints("Strength", ref pointsRemaining));
+                if (pointsRemaining <= 0) { break; }
 
-            attributes.SetLuck(AllocatePoints("Luck", pointsRemaining));
-            pointsRemaining -= attributes.GetLuck();
+                attributes.SetLuck(attributes.GetLuck() + AllocateAttributePoints("Luck", ref pointsRemaining));
+                if (pointsRemaining <= 0) break;
 
-            attributes.SetSpeed(AllocatePoints("Speed", pointsRemaining));
-            pointsRemaining -= attributes.GetSpeed();
+                attributes.SetSpeed(attributes.GetSpeed() + AllocateAttributePoints("Speed", ref pointsRemaining));
+                if (pointsRemaining <= 0) break;
 
-            attributes.SetEndurance(AllocatePoints("Endurance", pointsRemaining));
-            pointsRemaining -= attributes.GetEndurance();
+                attributes.SetEndurance(attributes.GetEndurance() + AllocateAttributePoints("Endurance", ref pointsRemaining));
+                if (pointsRemaining <= 0) break;
 
-            attributes.SetDexterity(AllocatePoints("Dexterity", pointsRemaining));
-            pointsRemaining -= attributes.GetDexterity();
+                attributes.SetDexterity(attributes.GetDexterity() + AllocateAttributePoints("Dexterity", ref pointsRemaining));
+                if (pointsRemaining <= 0) break;
+                attributes.SetIntelligence(attributes.GetIntelligence() + AllocateAttributePoints("Intelligence", ref pointsRemaining));
+                if (pointsRemaining <= 0) break;
+            }
 
-            attributes.SetIntelligence(AllocatePoints("Intelligence", pointsRemaining));
+            Console.WriteLine("You don't have remaining points.");
         }
 
-        private int AllocatePoints(string attributeName, int pointsRemaining)
+        private int AllocateAttributePoints(string attributeName, ref int pointsRemaining)
         {
-            while (true)
+            int allocated = 0;
+            if (pointsRemaining > 0)
             {
-                Console.WriteLine($"You have {pointsRemaining} points remaining.");
-                Console.Write($"How many points to allocate to {attributeName} (0-3): ");
-                if (int.TryParse(Console.ReadLine(), out int allocated) && allocated >= 0 && allocated <= 3 && allocated <= pointsRemaining)
+                while (pointsRemaining > 0)
                 {
-                    return allocated;
+                    Console.WriteLine($"\nAssign points to {attributeName} (Remaining Points: {pointsRemaining}):");
+                    string input = Console.ReadLine();
+                    if (int.TryParse(input, out allocated) && allocated >= 0 && allocated <= Math.Min(10, pointsRemaining))
+                    {
+                        pointsRemaining -= allocated;
+                        return allocated;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid input. You must assign between 0 and {Math.Min(10, pointsRemaining)} points.");
+                    }
                 }
-                Console.WriteLine("Invalid input. Please try again.");
             }
+            return 0;
         }
 
         private void SetAttribute(string attributeName, Action showOptions, Action<string> setAttribute, string[] options)
