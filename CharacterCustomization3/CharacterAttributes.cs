@@ -138,7 +138,7 @@ namespace CharacterCustomization
             {
                 Console.WriteLine($"\nYou have {pointsRemaining} points remaining.");
                 attributes.SetStrength(attributes.GetStrength() + AllocateAttributePoints("Strength", ref pointsRemaining));
-                if (pointsRemaining <= 0) { break; }
+                if (pointsRemaining <= 0) break;
 
                 attributes.SetLuck(attributes.GetLuck() + AllocateAttributePoints("Luck", ref pointsRemaining));
                 if (pointsRemaining <= 0) break;
