@@ -98,163 +98,175 @@ namespace CharacterCustomization
             showSkinToneOps showskintoneops = new showSkinToneOps();
 
             string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "", input;
-            bool loop = true;
-
             Console.WriteLine("\n=== Character Custom Apperance ===");
-            while (loop)
+            if (string.IsNullOrEmpty(appearance.getFaceShape()))
+            {
+                GetValidatedInput(
+                    "Character Face Shape",
+                    new[] { "Oval", "Round", "Square", "Diamond", "Heart" },
+                    appearance.setFaceShape,
+                    showfaceops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getEyeShape()))
+            {
+                GetValidatedInput(
+                    "Character Eye Shape",
+                    new[] { "Almond", "Round", "Monoloid", "Droopy", "Upturned" },
+                    appearance.setEyeShape,
+                    showeyeshapeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getEyeColor()))
+            {
+                GetValidatedInput(
+                    "Character Eye Color",
+                    new[] { "Brown", "Blue", "Green", "Black", "Hazel" },
+                    appearance.setEyeColor,
+                    showeyecolorops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getEyebrowShape()))
+            {
+                GetValidatedInput(
+                    "Character Eyebrow Shape",
+                    new[] { "Arch", "Straight", "Thick", "Thin", "Bushy", "Fine" },
+                    appearance.setEyebrowShape,
+                    showeyebrowshapeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getNoseShape()))
+            {
+                GetValidatedInput(
+                    "Character Nose Shape",
+                    new[] { "Button", "Aqualine", "Flat", "Long", "Short", "Roman" },
+                    appearance.setNoseShape,
+                    shownoseshapeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getMouthShape()))
+            {
+                GetValidatedInput(
+                    "Character Mouth Shape",
+                    new[] { "Full Lips", "Thin Lips", "Wide", "Small", "Downturned" },
+                    appearance.setMouthShape,
+                    showmouthshapeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getEarShape()))
+            {
+                GetValidatedInput(
+                    "Character Ear Shape",
+                    new[] { "Small", "Pointed", "Rounded", "Elongated", "Wide" },
+                    appearance.setEarShape,
+                    showearshapeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getFacialHair()))
+            {
+                GetValidatedInput(
+                    "Character Facial Hair",
+                    new[] { "Stubble", "Full Beard", "Goatee", "Mustache", "Clean-Shaven", "None" },
+                    appearance.setFacialHair,
+                    showfacialhairops.showOps
+                );
+            }
+
+            if (hairstyle11.Equals(""))
+            {
+                GetValidatedInput(
+                    "Character Hairstyle(Style)",
+                    new[] { "Curly", "Straight", "Braided", "Tied-Up", "Wavy", "Layered" },
+                    appearance.setHairstyle,
+                    showHairstyleOps1
+                );
+            }
+
+            if (hairstyle22.Equals(""))
+            {
+                GetValidatedInput(
+                    "Character Hairstyle(Color)",
+                    new[] { "Black", "Brown", "Red", "Blonde", "Gray", "Platinum", "Pink" },
+                    appearance.setHairstyle,
+                    showHairstyleOps2
+                );
+            }
+
+            if (hairstyle33.Equals(""))
+            {
+                GetValidatedInput(
+                    "Character Hairstyle(Color)",
+                    new[] { "Black", "Brown", "Red", "Blonde", "Gray", "Platinum", "Pink" },
+                    appearance.setHairstyle,
+                    showHairstyleOps3
+                );
+            }
+
+            if (hairstyle44.Equals(""))
+            {
+                GetValidatedInput(
+                    "Character Hairstyle(Texture)",
+                    new[] { "Silky", "Frizzy", "Thick", "Thin", "Coarse" },
+                    appearance.setHairstyle,
+                    showHairstyleOps4
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getAccessory()))
+            {
+                GetValidatedInput(
+                    "Character Hairstyle(Accessory)",
+                    new[] { "Headband", "Hair Clips", "Ribbon", "Beads", "Hats", "None" },
+                    appearance.setAccessory,
+                    showaccessoryops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getBodyType()))
+            {
+                GetValidatedInput(
+                    "Character Body Type",
+                    new[] { "Slim", "Average", "Athletic", "Curvy", "Bulk", "Tall" },
+                    appearance.setBodyType,
+                    showbodytypeops.showOps
+                );
+            }
+
+            if (string.IsNullOrEmpty(appearance.getSkinTone()))
+            {
+                GetValidatedInput(
+                    "Character Skin Tone",
+                    new[] { "Warm", "Cool", "Neutral", "Olive", "Deep" },
+                    appearance.setSkinTone,
+                    showskintoneops.showOps
+                );
+            }
+        }
+
+        public void GetValidatedInput(string prompt, string[] options, Action<string> setAction, Action showOptions)
+        {
+            bool valid = false;
+            while (!valid)
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(appearance.getFaceShape()))
-                    {
-                        Console.WriteLine("\n=== Character Face Shape ===");
-                        Console.WriteLine("Choose a Face Shape:");
-                        showfaceops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setFaceShape(checkInput(input, new[] { "Oval", "Round", "Square", "Diamond", "Heart" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getEyeShape()))
-                    {
-                        Console.WriteLine("\n=== Character Eye Shape ===");
-                        Console.WriteLine("Choose an Eye Shape:");
-                        showfaceops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setEyeShape(checkInput(input, new[] { "Almond", "Round", "Monoloid", "Droopy", "Upturned" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getEyeColor()))
-                    {
-                        Console.WriteLine("\n=== Character Eye Color ===");
-                        Console.WriteLine("Choose an Eye Color:");
-                        showeyecolorops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setEyeColor(checkInput(input, new[] { "Brown", "Blue", "Green", "Black", "Hazel" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getEyebrowShape()))
-                    {
-                        Console.WriteLine("\n=== Character Eyebrow Shape ===");
-                        Console.WriteLine("Choose an Eyebrow Shape:");
-                        showeyecolorops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setEyebrowShape(checkInput(input, new[] { "Arch", "Straight", "Thick", "Thin", "Bushy", "Fine" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getNoseShape()))
-                    {
-                        Console.WriteLine("\n=== Character Nose Shape ===");
-                        Console.WriteLine("Choose a Nose Shape:");
-                        shownoseshapeops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setNoseShape(checkInput(input, new[] { "Button", "Aqualine", "Flat", "Long", "Short", "Roman" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getMouthShape()))
-                    {
-                        Console.WriteLine("\n=== Character Mouth Shape ===");
-                        Console.WriteLine("Choose a Mouth Shape:");
-                        showmouthshapeops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setMouthShape(checkInput(input, new[] { "Full Lips", "Thin Lips", "Wide", "Small", "Downturned" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getEarShape()))
-                    {
-                        Console.WriteLine("\n=== Character Ear Shape ===");
-                        Console.WriteLine("Choose an Ear Shape:");
-                        showearshapeops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setEarShape(checkInput(input, new[] { "Small", "Pointed", "Rounded", "Elongated", "Wide" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getFacialHair()))
-                    {
-                        Console.WriteLine("\n=== Choose a Facial Hair ===");
-                        Console.WriteLine("Choose a Facial Hair:");
-                        showfacialhairops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setFacialHair(checkInput(input, new[] { "Stubble", "Full Beard", "Goatee", "Mustache", "Clean-Shaven", "None" }));
-                    }
-
-                    if (hairstyle11.Equals(""))
-                    {
-                        Console.WriteLine("\n=== Character Hairstyle ===");
-                        Console.WriteLine("Choose a Hairstyle(Style):");
-                        showHairstyleOps1();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        hairstyle11 = checkInput(input, new[] { "Curly", "Straight", "Braided", "Tied-Up", "Wavy", "Layered" });
-                    }
-
-                    if (hairstyle22.Equals(""))
-                    {
-                        Console.WriteLine("\nChoose a Hairstyle(Length):");
-                        showHairstyleOps2();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        hairstyle22 = checkInput(input, new[] { "Short", "Medium", "Long", "Very Long", "Bald" });
-                    }
-
-                    if (hairstyle33.Equals(""))
-                    {
-                        Console.WriteLine("\nChoose a Hairstyle(Color):");
-                        showHairstyleOps3();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        hairstyle33 = checkInput(input, new[] { "Black", "Brown", "Red", "Blonde", "Gray", "Platinum", "Pink" });
-                    }
-
-                    if (hairstyle44.Equals(""))
-                    {
-                        Console.WriteLine("\nChoose a Hairstyle(Texture):");
-                        showHairstyleOps4();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        hairstyle44 = checkInput(input, new[] { "Silky", "Frizzy", "Thick", "Thin", "Coarse" });
-                    }
-                    appearance.setHairstyle($"{hairstyle11} {hairstyle22} {hairstyle33} {hairstyle33} {hairstyle44}");
-
-                    if (string.IsNullOrEmpty(appearance.getAccessory()))
-                    {
-                        Console.WriteLine("\nChoose a Hairstyle(Accessory):");
-                        showaccessoryops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setAccessory(checkInput(input, new[] { "Headband", "Hair Clips", "Ribbon", "Beads", "Hats", "None" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getBodyType()))
-                    {
-                        Console.WriteLine("\n=== Character Body Type ===");
-                        Console.WriteLine("Choose a Body Type");
-                        showbodytypeops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setBodyType(checkInput(input, new[] { "Slim", "Average", "Athletic", "Curvy", "Bulk", "Tall" }));
-                    }
-
-                    if (string.IsNullOrEmpty(appearance.getSkinTone()))
-                    {
-                        Console.WriteLine("\n=== Character Skin Tone ===");
-                        Console.WriteLine("Choose a Skin Tone");
-                        showskintoneops.showOps();
-                        Console.Write("Enter Choice: ");
-                        input = Console.ReadLine();
-                        appearance.setSkinTone(checkInput(input, new[] { "Warm", "Cool", "Neutral", "Olive", "Deep" }));
-                    }
+                    Console.WriteLine($"\n=== {prompt} ===");
+                    showOptions.Invoke();
+                    Console.Write("Enter Choice: ");
+                    string input = Console.ReadLine();
+                    setAction.Invoke(checkInput(input, options));
                     break;
                 }
                 catch (OnlyOneCharacter ex) { Console.WriteLine("Error: " + ex.Message); }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("Error: " + ex.Message); }
             }
         }
 

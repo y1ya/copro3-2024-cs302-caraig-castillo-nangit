@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CharacterCustomization
@@ -15,6 +16,8 @@ namespace CharacterCustomization
     {
         public static string checkInput(string input, string[] choose)
         {
+            if (!Regex.IsMatch(input, @"^[a-zA-Z\s]+$")) { throw new OnlyLetterException("Must be a Letter"); }
+
             if (input.Length == 1)
             {
                 return chosenOps(Char.Parse(input.ToLower()), choose);
@@ -43,5 +46,10 @@ namespace CharacterCustomization
     public class OnlyOneCharacter : Exception
     {
         public OnlyOneCharacter(string message) : base(message) { }
+    }
+
+    public class OnlyLetterException : Exception
+    {
+        public OnlyLetterException(string message) : base(message) { }
     }
 }
