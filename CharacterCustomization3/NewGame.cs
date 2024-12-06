@@ -79,3 +79,6 @@ namespace CharacterCreationSystem
         }
     }
 }
+
+//like this comment, from Git (Top of the screen) then press Commit, or you can just find the "Git Changes" on your right screen
+//add a message, kung ano man yung bago sa code mo, then press commit all, and of course save the changes first before commiting
