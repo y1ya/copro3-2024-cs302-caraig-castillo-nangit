@@ -16,7 +16,7 @@ namespace CharacterCustomization
     {
         public static string checkInput(string input, string[] choose)
         {
-            if (!Regex.IsMatch(input, @"^[a-zA-Z\s]+$")) { throw new OnlyLetterException("Must be a Letter"); }
+            if (!Regex.IsMatch(input, @"^[a-zA-Z\s]+$")) { throw new OnlyLetterException("Must be One Letter"); }
 
             if (input.Length == 1)
             {

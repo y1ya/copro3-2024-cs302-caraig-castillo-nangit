@@ -88,7 +88,7 @@ namespace CharacterCustomization
             showFaceOps showfaceops = new showFaceOps();
             showEyeShapeOps showeyeshapeops = new showEyeShapeOps();
             showEyeColorOps showeyecolorops = new showEyeColorOps();
-            showEyebrowOps showeyebrowops = new showEyebrowOps();
+            showEyebrowOps showeyebrowshapeops = new showEyebrowOps();
             showNoseShapeOps shownoseshapeops = new showNoseShapeOps();
             showMouthShapeOps showmouthshapeops = new showMouthShapeOps();
             showEarShapeOps showearshapeops = new showEarShapeOps();
@@ -97,7 +97,8 @@ namespace CharacterCustomization
             showAccessoryOps showaccessoryops = new showAccessoryOps();
             showSkinToneOps showskintoneops = new showSkinToneOps();
 
-            string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "", input;
+            string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "";
+
             Console.WriteLine("\n=== Character Custom Apperance ===");
             if (string.IsNullOrEmpty(appearance.getFaceShape()))
             {
@@ -264,9 +265,9 @@ namespace CharacterCustomization
                     setAction.Invoke(checkInput(input, options));
                     break;
                 }
-                catch (OnlyOneCharacter ex) { Console.WriteLine("Error: " + ex.Message); }
-                catch (IndexOutOfRangeException ex) { Console.WriteLine("Error: " + ex.Message); }
-                catch (OnlyLetterException ex) { Console.WriteLine("Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 
