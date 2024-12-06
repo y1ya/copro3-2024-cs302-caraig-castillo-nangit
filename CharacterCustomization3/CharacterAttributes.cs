@@ -76,8 +76,13 @@ namespace CharacterCustomization
         {
             Console.WriteLine("\n=== Character Attributes ===");
             AllocateStats();
-            SetAttribute("Positive Effect", ShowPositiveEffectOptions, attributes.SetPositiveEffect, new[]
+
+            if (string.IsNullOrEmpty(attributes.GetPositiveEffect()))
+            {
+                try
                 {
+                    SetAttribute("Positive Effect", ShowPositiveEffectOptions, attributes.SetPositiveEffect, new[]
+                    {
                     "Energy Boost - Increases stamina by 20%",
                     "Speed Increase - Performs tasks 20% faster",
                     "Enhanced Harvest - Increases yield by 20%",
@@ -86,9 +91,18 @@ namespace CharacterCustomization
                     "Soil Fertility Boost - Speeds up crop growth by 20%",
                     "Animal Productivity - Animals produce 20% more goods"
                 });
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+            }
 
-            SetAttribute("Negative Effect", ShowNegativeEffectOptions, attributes.SetNegativeEffect, new[]
+            if (string.IsNullOrEmpty(attributes.GetNegativeEffect()))
+            {
+                try
                 {
+                    SetAttribute("Negative Effect", ShowNegativeEffectOptions, attributes.SetNegativeEffect, new[]
+                        {
                     "Fatigue - Reduces stamina recovery",
                     "Sickness - Affects daily tasks",
                     "Crop Damage - Lowers crop yield",
@@ -96,21 +110,53 @@ namespace CharacterCustomization
                     "Soil Degradation - Reduces soil fertility",
                     "Stress Build-Up - Affects character's overall performance"
                 });
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+            }
 
-            SetAttribute("Tools", ShowToolsOptions, attributes.SetTools, new[]
+            if (string.IsNullOrEmpty(attributes.GetTools()))
+            {
+                try
                 {
+                    SetAttribute("Tools", ShowToolsOptions, attributes.SetTools, new[]
+                        {
                     "Basic Tools", "Advanced Tools", "Specialized Tools", "Seasonal Tools"
                 });
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+            }
 
-            SetAttribute("Accessories", ShowAccessoriesOptions, attributes.SetAccessories, new[]
+            if (string.IsNullOrEmpty(attributes.GetAccessories()))
+            {
+                try
                 {
+                    SetAttribute("Accessories", ShowAccessoriesOptions, attributes.SetAccessories, new[]
+                        {
                     "Storage Expansion Backpack", "Lucky Hoe", "Harvest Gloves", "Crop Analyzer", "Mechanical Shovel"
                 });
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+            }
 
-            SetAttribute("Clothes", ShowClothesOptions, attributes.SetClothes, new[]
+            if (string.IsNullOrEmpty(attributes.GetClothes()))
+            {
+                try
                 {
+                    SetAttribute("Clothes", ShowClothesOptions, attributes.SetClothes, new[]
+                        {
                     "Classic Overalls", "Flannel Shirt and Jeans", "Wide-Brimmed Hat and Boots", "Straw Hat and Apron", "Farmer's Vest"
                 });
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+            }
         }
 
         public void DisplayAttributes()
