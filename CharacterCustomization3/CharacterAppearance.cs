@@ -98,7 +98,7 @@ namespace CharacterCustomization
             showSkinToneOps showskintoneops = new showSkinToneOps();
 
             string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "", input;
-            bool loop = true, valid = false;
+            
 
             Console.WriteLine("\n=== Character Custom Apperance ===");
             if (string.IsNullOrEmpty(appearance.getFaceShape()))
