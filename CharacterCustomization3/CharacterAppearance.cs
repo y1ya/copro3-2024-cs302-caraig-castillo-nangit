@@ -339,11 +339,11 @@ namespace CharacterCustomization
     {
         public override void showOps()
         {
-            Console.WriteLine("(a) Oval");
+            Console.WriteLine("(a) Almond");
             Console.WriteLine("(b) Round");
-            Console.WriteLine("(c) Square");
-            Console.WriteLine("(d) Diamond");
-            Console.WriteLine("(e) Heart");
+            Console.WriteLine("(c) Monolid");
+            Console.WriteLine("(d) Droopy");
+            Console.WriteLine("(e) Upturned");
         }
     }
     public class showEyeColorOps : IShowOps
