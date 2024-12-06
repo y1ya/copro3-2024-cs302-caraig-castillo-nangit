@@ -50,12 +50,17 @@ namespace CharacterCustomization
         }
         public void CustomizeInfo()
         {
-            Console.WriteLine("\n=== Customize Character Info ===");
-            SetName();
-            SetAge();
-            SetGender();
-            SetRace();
-            SetFarmerType();
+            try
+            {
+                Console.WriteLine("\n=== Customize Character Info ===");
+                SetName();
+                SetAge();
+                SetGender();
+                SetRace();
+                SetFarmerType();
+            }
+            catch (OnlyLetterException ex) { Console.WriteLine("Error: " + ex.Message); }
+            catch (OnlyOneCharacter ex) { Console.WriteLine("Error: " + ex.Message); }
         }
         private void SetName()
         {
@@ -83,7 +88,8 @@ namespace CharacterCustomization
                 Console.WriteLine("\n=== Character Age ===");
                 ShowAgeOptions();
                 Console.Write("Enter choice: ");
-                characterInfo.SetAge(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                string input = Console.ReadLine();
+                characterInfo.SetAge(CheckForErrors.checkInput(input, new[]
                 {
                     "Young Adult (18-24)", "Adult (25-31)", "Middle-Aged (32-38)",
                     "Mature Adult (39-45)", "Experienced (46-52)"
