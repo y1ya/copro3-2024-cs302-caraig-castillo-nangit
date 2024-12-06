@@ -2,7 +2,7 @@
 
 namespace CharacterCustomization
 {
-    public interface IShowOps
+    /*public interface IShowOps
     {
         void showFaceShapeOps();
         void showEyeShapeOps();
@@ -19,7 +19,7 @@ namespace CharacterCustomization
         void showAccessoryOps();
         void showBodyTypeOps();
         void showSkinToneOps();
-    }
+    }*/
     public class Appearance
     {
         private string faceShape;
@@ -79,15 +79,27 @@ namespace CharacterCustomization
         public string getBodyType() { return bodyType; }
         public string getSkinTone() { return skinTone; }
     }
-    public class CustomAppearance : CheckForErrors, IShowOps
+    public class CustomAppearance : CheckForErrors
     {
         private Appearance appearance;
         public CustomAppearance() { appearance = new Appearance("", "", "", "", "", "", "", "", "", "", "", ""); }
         public void CustomizeAppearance()
         {
-            string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "", input;
+            showFaceOps showfaceops = new showFaceOps();
+            showEyeShapeOps showeyeshapeops = new showEyeShapeOps();
+            showEyeColorOps showeyecolorops = new showEyeColorOps();
+            showEyebrowOps showeyebrowops = new showEyebrowOps();
+            showNoseShapeOps shownoseshapeops = new showNoseShapeOps();
+            showMouthShapeOps showmouthshapeops = new showMouthShapeOps();
+            showEarShapeOps showearshapeops = new showEarShapeOps();
+            showFacialHairOps showfacialhairops = new showFacialHairOps();
+            showBodyTypeOps showbodytypeops = new showBodyTypeOps();
+            showAccessoryOps showaccessoryops = new showAccessoryOps();
+            showSkinToneOps showskintoneops = new showSkinToneOps();
 
+            string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "", input;
             bool loop = true;
+
             Console.WriteLine("\n=== Character Custom Apperance ===");
             while (loop)
             {
@@ -97,7 +109,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Face Shape ===");
                         Console.WriteLine("Choose a Face Shape:");
-                        showFaceShapeOps();
+                        showfaceops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setFaceShape(checkInput(input, new[] { "Oval", "Round", "Square", "Diamond", "Heart" }));
@@ -107,7 +119,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Eye Shape ===");
                         Console.WriteLine("Choose an Eye Shape:");
-                        showEyeShapeOps();
+                        showfaceops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setEyeShape(checkInput(input, new[] { "Almond", "Round", "Monoloid", "Droopy", "Upturned" }));
@@ -117,7 +129,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Eye Color ===");
                         Console.WriteLine("Choose an Eye Color:");
-                        showEyeColorOps();
+                        showeyecolorops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setEyeColor(checkInput(input, new[] { "Brown", "Blue", "Green", "Black", "Hazel" }));
@@ -127,7 +139,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Eyebrow Shape ===");
                         Console.WriteLine("Choose an Eyebrow Shape:");
-                        showEyebrowShapeOps();
+                        showeyecolorops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setEyebrowShape(checkInput(input, new[] { "Arch", "Straight", "Thick", "Thin", "Bushy", "Fine" }));
@@ -137,7 +149,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Nose Shape ===");
                         Console.WriteLine("Choose a Nose Shape:");
-                        showNoseShapeOps();
+                        shownoseshapeops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setNoseShape(checkInput(input, new[] { "Button", "Aqualine", "Flat", "Long", "Short", "Roman" }));
@@ -147,7 +159,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Mouth Shape ===");
                         Console.WriteLine("Choose a Mouth Shape:");
-                        showMouthShapeOps();
+                        showmouthshapeops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setMouthShape(checkInput(input, new[] { "Full Lips", "Thin Lips", "Wide", "Small", "Downturned" }));
@@ -157,7 +169,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Ear Shape ===");
                         Console.WriteLine("Choose an Ear Shape:");
-                        showEarShapeOps();
+                        showearshapeops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setEarShape(checkInput(input, new[] { "Small", "Pointed", "Rounded", "Elongated", "Wide" }));
@@ -167,7 +179,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Choose a Facial Hair ===");
                         Console.WriteLine("Choose a Facial Hair:");
-                        showFacialHairOps();
+                        showfacialhairops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setFacialHair(checkInput(input, new[] { "Stubble", "Full Beard", "Goatee", "Mustache", "Clean-Shaven", "None" }));
@@ -214,7 +226,7 @@ namespace CharacterCustomization
                     if (string.IsNullOrEmpty(appearance.getAccessory()))
                     {
                         Console.WriteLine("\nChoose a Hairstyle(Accessory):");
-                        showAccessoryOps();
+                        showaccessoryops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setAccessory(checkInput(input, new[] { "Headband", "Hair Clips", "Ribbon", "Beads", "Hats", "None" }));
@@ -224,7 +236,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Body Type ===");
                         Console.WriteLine("Choose a Body Type");
-                        showBodyTypeOps();
+                        showbodytypeops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setBodyType(checkInput(input, new[] { "Slim", "Average", "Athletic", "Curvy", "Bulk", "Tall" }));
@@ -234,7 +246,7 @@ namespace CharacterCustomization
                     {
                         Console.WriteLine("\n=== Character Skin Tone ===");
                         Console.WriteLine("Choose a Skin Tone");
-                        showSkinToneOps();
+                        showskintoneops.showOps();
                         Console.Write("Enter Choice: ");
                         input = Console.ReadLine();
                         appearance.setSkinTone(checkInput(input, new[] { "Warm", "Cool", "Neutral", "Olive", "Deep" }));
@@ -262,73 +274,6 @@ namespace CharacterCustomization
             Console.WriteLine($"{"Skin Tone:",-20} {appearance.getSkinTone()}");
         }
 
-        public void showFaceShapeOps()
-        {
-            Console.WriteLine("(a) Oval");
-            Console.WriteLine("(b) Round");
-            Console.WriteLine("(c) Square");
-            Console.WriteLine("(d) Diamond");
-            Console.WriteLine("(e) Heart");
-        }
-        public void showEyeShapeOps()
-        {
-            Console.WriteLine("(a) Almond");
-            Console.WriteLine("(b) Round");
-            Console.WriteLine("(c) Monoloid");
-            Console.WriteLine("(d) Droopy");
-            Console.WriteLine("(e) Upturned");
-        }
-        public void showEyeColorOps()
-        {
-            Console.WriteLine("(a) Brown");
-            Console.WriteLine("(b) Blue");
-            Console.WriteLine("(c) Green");
-            Console.WriteLine("(d) Black");
-            Console.WriteLine("(e) Hazel");
-        }
-        public void showEyebrowShapeOps()
-        {
-            Console.WriteLine("(a) Arch");
-            Console.WriteLine("(b) Straight");
-            Console.WriteLine("(c) Thick");
-            Console.WriteLine("(d) Thin");
-            Console.WriteLine("(e) Bushy");
-            Console.WriteLine("(f) Fine");
-        }
-        public void showNoseShapeOps()
-        {
-            Console.WriteLine("(a) Button");
-            Console.WriteLine("(b) Aquiline");
-            Console.WriteLine("(c) Flat");
-            Console.WriteLine("(d) Long");
-            Console.WriteLine("(e) Short");
-            Console.WriteLine("(f) Roman");
-        }
-        public void showMouthShapeOps()
-        {
-            Console.WriteLine("(a) Full Lips");
-            Console.WriteLine("(b) Thin Lips");
-            Console.WriteLine("(c) Wide");
-            Console.WriteLine("(d) Small");
-            Console.WriteLine("(e) Downturned");
-        }
-        public void showEarShapeOps()
-        {
-            Console.WriteLine("(a) Small");
-            Console.WriteLine("(b) Pointed");
-            Console.WriteLine("(c) Rounded");
-            Console.WriteLine("(d) Elongated");
-            Console.WriteLine("(e) Wide");
-        }
-        public void showFacialHairOps()
-        {
-            Console.WriteLine("(a) Stubble");
-            Console.WriteLine("(b) Full Beard");
-            Console.WriteLine("(c) Goatee");
-            Console.WriteLine("(d) Mustache");
-            Console.WriteLine("(e) Clean-Shaven");
-            Console.WriteLine("(f) None");
-        }
         public void showHairstyleOps1()
         {
             Console.WriteLine("(a) Curly");
@@ -364,7 +309,102 @@ namespace CharacterCustomization
             Console.WriteLine("(d) Thin");
             Console.WriteLine("(e) Coarse");
         }
-        public void showBodyTypeOps()
+    }
+
+    public class showFaceOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Oval");
+            Console.WriteLine("(b) Round");
+            Console.WriteLine("(c) Square");
+            Console.WriteLine("(d) Diamond");
+            Console.WriteLine("(e) Heart");
+        }
+    }
+    public class showEyeShapeOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Oval");
+            Console.WriteLine("(b) Round");
+            Console.WriteLine("(c) Square");
+            Console.WriteLine("(d) Diamond");
+            Console.WriteLine("(e) Heart");
+        }
+    }
+    public class showEyeColorOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Brown");
+            Console.WriteLine("(b) Blue");
+            Console.WriteLine("(c) Green");
+            Console.WriteLine("(d) Black");
+            Console.WriteLine("(e) Hazel");
+        }
+    }
+    public class showEyebrowOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Arch");
+            Console.WriteLine("(b) Straight");
+            Console.WriteLine("(c) Thick");
+            Console.WriteLine("(d) Thin");
+            Console.WriteLine("(e) Bushy");
+            Console.WriteLine("(f) Fine");
+        }
+    }
+    public class showNoseShapeOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Button");
+            Console.WriteLine("(b) Aquiline");
+            Console.WriteLine("(c) Flat");
+            Console.WriteLine("(d) Long");
+            Console.WriteLine("(e) Short");
+            Console.WriteLine("(f) Roman");
+        }
+    }
+    public class showMouthShapeOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Full Lips");
+            Console.WriteLine("(b) Thin Lips");
+            Console.WriteLine("(c) Wide");
+            Console.WriteLine("(d) Small");
+            Console.WriteLine("(e) Downturned");
+        }
+    }
+    public class showEarShapeOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Small");
+            Console.WriteLine("(b) Pointed");
+            Console.WriteLine("(c) Rounded");
+            Console.WriteLine("(d) Elongated");
+            Console.WriteLine("(e) Wide");
+        }
+    }
+    public class showFacialHairOps : IShowOps
+    {
+        public override void showOps()
+        {
+            Console.WriteLine("(a) Stubble");
+            Console.WriteLine("(b) Full Beard");
+            Console.WriteLine("(c) Goatee");
+            Console.WriteLine("(d) Mustache");
+            Console.WriteLine("(e) Clean-Shaven");
+            Console.WriteLine("(f) None");
+        }
+    }
+    public class showBodyTypeOps : IShowOps
+    {
+        public override void showOps()
         {
             Console.WriteLine("(a) Slim");
             Console.WriteLine("(b) Average");
@@ -373,7 +413,10 @@ namespace CharacterCustomization
             Console.WriteLine("(e) Bulk");
             Console.WriteLine("(f) Tall");
         }
-        public void showAccessoryOps()
+    }
+    public class showAccessoryOps : IShowOps
+    {
+        public override void showOps()
         {
             Console.WriteLine("(a) Headband");
             Console.WriteLine("(b) Hair Clips");
@@ -382,7 +425,10 @@ namespace CharacterCustomization
             Console.WriteLine("(e) Hats");
             Console.WriteLine("(f) None");
         }
-        public void showSkinToneOps()
+    }
+    public class showSkinToneOps : IShowOps
+    {
+        public override void showOps()
         {
             Console.WriteLine("(a) Warm");
             Console.WriteLine("(b) Cool");
@@ -390,39 +436,5 @@ namespace CharacterCustomization
             Console.WriteLine("(d) Olive");
             Console.WriteLine("(e) Deep");
         }
-    }
-
-    public class CheckForErrors
-    {
-        public static string checkInput(string input, string[] choose)
-        {
-            if (input.Length == 1)
-            {
-                return chosenOps(Char.Parse(input.ToLower()), choose);
-            }
-            else { throw new OnlyOneCharacter("Must be one character only"); }
-        }
-
-        public static string chosenOps(char letter, string[] choose)
-        {
-            string[] shapess = choose;
-
-            switch (letter)
-            {
-                case 'a': return shapess[0];
-                case 'b': return shapess[1];
-                case 'c': return shapess[2];
-                case 'd': return shapess[3];
-                case 'e': return shapess[4];
-                case 'f': return shapess[5];
-                case 'g': return shapess[6];
-                default: throw new IndexOutOfRangeException();
-            }
-        }
-    }
-
-    public class OnlyOneCharacter : Exception
-    {
-        public OnlyOneCharacter(string message) : base(message) { }
     }
 }
