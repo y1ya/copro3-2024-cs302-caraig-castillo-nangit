@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CharacterCreationSystem;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Xml.Linq;
@@ -50,7 +51,6 @@ namespace CharacterCustomization
         }
         public void CustomizeInfo()
         {
-            Console.WriteLine("\n=== Customize Character Info ===");
             SetName();
             SetAge();
             SetGender();
@@ -80,14 +80,20 @@ namespace CharacterCustomization
         {
             while (string.IsNullOrEmpty(characterInfo.GetAge()))
             {
-                Console.WriteLine("\n=== Character Age ===");
-                ShowAgeOptions();
-                Console.Write("Enter choice: ");
-                characterInfo.SetAge(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                try
                 {
+                    Console.WriteLine("\n=== Character Age ===");
+                    ShowAgeOptions();
+                    Console.Write("Enter choice: ");
+                    characterInfo.SetAge(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                    {
                     "Young Adult (18-24)", "Adult (25-31)", "Middle-Aged (32-38)",
                     "Mature Adult (39-45)", "Experienced (46-52)"
-                }));
+                    }));
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 
@@ -95,10 +101,16 @@ namespace CharacterCustomization
         {
             while (string.IsNullOrEmpty(characterInfo.GetGender()))
             {
-                Console.WriteLine("\n=== Character Gender ===");
-                ShowGenderOptions();
-                Console.Write("Enter choice: ");
-                characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Non-Binary", "Other" }));
+                try
+                {
+                    Console.WriteLine("\n=== Character Gender ===");
+                    ShowGenderOptions();
+                    Console.Write("Enter choice: ");
+                    characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Gay", "Lesbian", "Non-Binary", "Other" }));
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 
@@ -106,13 +118,19 @@ namespace CharacterCustomization
         {
             while (string.IsNullOrEmpty(characterInfo.GetRace()))
             {
-                Console.WriteLine("\n=== Character Race ===");
-                ShowRaceOptions();
-                Console.Write("Enter choice: ");
-                characterInfo.SetRace(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                try
                 {
+                    Console.WriteLine("\n=== Character Race ===");
+                    ShowRaceOptions();
+                    Console.Write("Enter choice: ");
+                    characterInfo.SetRace(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                    {
                     "Western European", "Asian", "Native American", "Australian", "Middle Eastern"
                 }));
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 
@@ -120,13 +138,19 @@ namespace CharacterCustomization
         {
             while (string.IsNullOrEmpty(characterInfo.GetFarmerType()))
             {
-                Console.WriteLine("\n=== Character Farmer Type ===");
-                ShowFarmerTypeOptions();
-                Console.Write("Enter choice: ");
-                characterInfo.SetFarmerType(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                try
                 {
-                    "Crop Farmer", "Livestock Farmer", "Mixed Farmer", "Organic Farmer", "Aquaculture Farmer"
+                    Console.WriteLine("\n=== Character Farmer Type ===");
+                    ShowFarmerTypeOptions();
+                    Console.Write("Enter choice: ");
+                    characterInfo.SetFarmerType(CheckForErrors.checkInput(Console.ReadLine(), new[]
+                    {
+                    "Mixed/General Farmer", "Livestock Farmer", "Grain Farmer", "Vegetable Farmer", "Fruit Farmer"
                 }));
+                }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 

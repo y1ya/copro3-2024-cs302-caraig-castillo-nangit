@@ -23,17 +23,17 @@ namespace CharacterCreationSystem
         public int dexterity;
         public int intelligence;
     }
-    public class NewGame
+    public class NewGame : IntroduceGame
     {
+        CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
+        CustomAttributes customAttributes = new CustomAttributes();
+        CustomAppearance customAppearance = new CustomAppearance();
         public void CreateCharacter()
         {
             Console.Clear();
             CharacterDetails chardetails = new CharacterDetails();
-            CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
-            CustomAttributes customAttributes = new CustomAttributes();
-            CustomAppearance customAppearance = new CustomAppearance();
-            Console.WriteLine("===== NEW GAME: Create Your Character =====");
-
+            Introduce();
+            
             customcharacterInfo.CustomizeInfo();
             customAttributes.CustomizeAttribute();
             customAppearance.CustomizeAppearance();
@@ -43,42 +43,63 @@ namespace CharacterCreationSystem
             chardetails.gender = customcharacterInfo.getGender();
             chardetails.race = customcharacterInfo.getRace();
             chardetails.farmerType = customcharacterInfo.getFarmerType();
-            chardetails.positiveEffect = customAttributes.getPositiveEffect();
-            chardetails.negativeEffect = customAttributes.getNegativeEffect();
-            chardetails.tools = customAttributes.getTools();
-            chardetails.accessories = customAttributes.getAccessory();
-            chardetails.clothes = customAttributes.getClothes();
+            chardetails.positiveEffect = customAttributes.GetPositiveEffect();
+            chardetails.negativeEffect = customAttributes.GetNegativeEffect();
+            chardetails.tools = customAttributes.GetTools();
+            chardetails.accessories = customAttributes.GetAccessory();
+            chardetails.clothes = customAttributes.GetClothes();
 
-            chardetails.strength = customAttributes.getStrength();
-            chardetails.luck = customAttributes.getLuck();
-            chardetails.speed = customAttributes.getSpeed();
-            chardetails.endurance = customAttributes.getEndurance();
-            chardetails.dexterity = customAttributes.getDexterity();
-            chardetails.intelligence = customAttributes.getIntelligence();
+            chardetails.strength = customAttributes.GetStrength();
+            chardetails.luck = customAttributes.GetLuck();
+            chardetails.speed = customAttributes.GetSpeed();
+            chardetails.endurance = customAttributes.GetEndurance();
+            chardetails.dexterity = customAttributes.GetDexterity();
+            chardetails.intelligence = customAttributes.GetIntelligence();
 
             Console.Clear();
-            Console.WriteLine("\t===== Character Summary =====");
-            customcharacterInfo.ShowDetailInfo();
+            Console.WriteLine("\n\n\t===== Character Summary =====");
+            showCharacterDetail();
             Console.WriteLine("\n\t=== Character Stats ===");
-            Console.WriteLine($"{"Strength:",-20} {chardetails.strength}");
-            Console.WriteLine($"{"Luck:",-20} {chardetails.luck}");
-            Console.WriteLine($"{"Speed:",-20} {chardetails.speed}");
-            Console.WriteLine($"{"Endurance:",-20} {chardetails.endurance}");
-            Console.WriteLine($"{"Dexterity:",-20} {chardetails.dexterity}");
-            Console.WriteLine($"{"Intelligence:",-20} {chardetails.intelligence}");
-            Console.WriteLine($"{"Positive Effect:",-20} {chardetails.positiveEffect}");
-            Console.WriteLine($"{"Negative Effect:",-20} {chardetails.negativeEffect}");
-            Console.WriteLine($"{"Tools:",-20} {chardetails.tools}");
+            showCharacterDetail(chardetails.strength, chardetails.luck, chardetails.speed, chardetails.endurance, chardetails.dexterity, chardetails.intelligence,
+                chardetails.positiveEffect, chardetails.negativeEffect, chardetails.tools);
 
             Console.WriteLine("\n\t=== Appearance Details ===");
             customAppearance.showDetailAppearance();
-            Console.WriteLine($"{"Accessories:",-20} {chardetails.accessories}");
-            Console.WriteLine($"{"Clothes:",-20} {chardetails.clothes}");
+            showCharacterDetail(chardetails.accessories, chardetails.clothes);
             Console.WriteLine("\nCharacter creation complete! Press any key to return to the main menu...");
             Console.ReadKey();
         }
+
+        public void showCharacterDetail()
+        {
+            customcharacterInfo.ShowDetailInfo();
+        }
+
+        public void showCharacterDetail(int strength, int luck, int speed, int endurance, 
+            int dexterity, int intelligence, string posEffect, string negEffect, string tools)
+        {
+            Console.WriteLine($"{"Strength:",-20} {strength}");
+            Console.WriteLine($"{"Luck:",-20} {luck}");
+            Console.WriteLine($"{"Speed:",-20} {speed}");
+            Console.WriteLine($"{"Endurance:",-20} {endurance}");
+            Console.WriteLine($"{"Dexterity:",-20} {dexterity}");
+            Console.WriteLine($"{"Intelligence:",-20} {intelligence}");
+            Console.WriteLine($"{"Positive Effect:",-20} {posEffect}");
+            Console.WriteLine($"{"Negative Effect:",-20} {negEffect}");
+            Console.WriteLine($"{"Tools:",-20} {tools}");
+        }
+
+        public void showCharacterDetail(string accessories, string clothes)
+        {
+            Console.WriteLine($"{"Accessories:",-20} {accessories}");
+            Console.WriteLine($"{"Clothes:",-20} {clothes}");
+        }
+
+        public override void Introduce()
+        {
+            base.Introduce();
+
+            Console.WriteLine("\n===== NEW GAME: Create Your Character =====");
+        }
     }
 }
-
-//like this comment, from Git (Top of the screen) then press Commit, or you can just find the "Git Changes" on your right screen
-//add a message, kung ano man yung bago sa code mo, then press commit all, and of course save the changes first before commiting
