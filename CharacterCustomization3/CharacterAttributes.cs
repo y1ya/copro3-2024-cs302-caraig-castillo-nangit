@@ -92,7 +92,6 @@ namespace CharacterCustomization
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
 
-
             while (attributes.GetNegativeEffect() == "None")
             {
                 try
@@ -121,7 +120,7 @@ namespace CharacterCustomization
                     "Basic Tools - Hoe, Shovel, Watering Can, Rake, Spade",
                     "Advanced Tools - Scythe, Axe, Pickaxe, Sickle, Power Tiller",
                     "Specialized Tools - Fertilizer, Bug Net, Pruning Shears, Sprinkler System, Soil Tester",
-                    "Seasonal Tools - Snow Shovel, Winter Coat, Shade Net, Ice Pick, Storm Shelter Equiqment"
+                    "Seasonal Tools - Snow Shovel, Winter Coat, Shade Net, Ice Pick, Storm Shelter Equiqment"             
                 });
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -142,7 +141,6 @@ namespace CharacterCustomization
                 catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
-
 
             while (attributes.GetClothes() == "None")
             {

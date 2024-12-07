@@ -99,6 +99,7 @@ namespace CharacterCustomization
 
         private void SetGender()
         {
+
             while (string.IsNullOrEmpty(characterInfo.GetGender()))
             {
                 try
@@ -106,7 +107,7 @@ namespace CharacterCustomization
                     Console.WriteLine("\n=== Character Gender ===");
                     ShowGenderOptions();
                     Console.Write("Enter choice: ");
-                    characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Gay", "Lesbian", "Non-Binary", "Other" }));
+                    characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Non-Binary", "Other" }));
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
                 catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -136,6 +137,7 @@ namespace CharacterCustomization
 
         private void SetFarmerType()
         {
+
             while (string.IsNullOrEmpty(characterInfo.GetFarmerType()))
             {
                 try
@@ -145,7 +147,7 @@ namespace CharacterCustomization
                     Console.Write("Enter choice: ");
                     characterInfo.SetFarmerType(CheckForErrors.checkInput(Console.ReadLine(), new[]
                     {
-                    "Mixed/General Farmer", "Livestock Farmer", "Grain Farmer", "Vegetable Farmer", "Fruit Farmer"
+                    "Crop Farmer", "Livestock Farmer", "Mixed Farmer", "Organic Farmer", "Aquaculture Farmer"
                 }));
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }

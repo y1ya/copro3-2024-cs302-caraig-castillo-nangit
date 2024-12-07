@@ -80,6 +80,7 @@ namespace CharacterCustomization
             showSkinToneOps showskintoneops = new showSkinToneOps();
 
             string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "";
+            
             Console.WriteLine("\n=== Character Custom Apperance ===");
             if (string.IsNullOrEmpty(appearance.getFaceShape()))
             {
@@ -246,9 +247,9 @@ namespace CharacterCustomization
                     setAction.Invoke(checkInput(input, options));
                     break;
                 }
-                catch (OnlyOneCharacter ex) { Console.WriteLine("Error: " + ex.Message); }
-                catch (IndexOutOfRangeException ex) { Console.WriteLine("Error: " + ex.Message); }
-                catch (OnlyLetterException ex) { Console.WriteLine("Error: " + ex.Message); }
+                catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 
