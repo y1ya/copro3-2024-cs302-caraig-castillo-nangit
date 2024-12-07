@@ -60,9 +60,4 @@ namespace CharacterCustomization
     {
         public OnlyLetterException(string message) : base(message) { }
     }
-
-    public class NamingException : Exception
-    {
-        public NamingException(string message) : base(message) { }
-    }
 }

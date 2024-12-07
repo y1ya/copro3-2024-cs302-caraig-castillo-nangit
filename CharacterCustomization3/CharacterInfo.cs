@@ -51,6 +51,7 @@ namespace CharacterCustomization
         }
         public void CustomizeInfo()
         {
+            Console.WriteLine("\n=== Customize Character Info ===");
             SetName();
             SetAge();
             SetGender();
@@ -67,16 +68,21 @@ namespace CharacterCustomization
                     ShowNameOptions();
                     Console.Write("Enter Name: ");
                     string input = Console.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(input) && input.Length >= 3 && input.Length <= 16)
+                    if (string.IsNullOrWhiteSpace(input))
                     {
-                        characterInfo.SetName(input);
+                        throw new Exception("Name cannot be empty or whitespace.");
                     }
-                    else
+                    if (input.Length < 3 || input.Length > 16)
                     {
-                        throw new NamingException("Name must be 3-16 characters long.");
+                        throw new Exception("Name must be 3-16 characters long.");
                     }
+
+                    characterInfo.SetName(input);
                 }
-                catch (NamingException ex) { Console.WriteLine("==Error: " + ex.Message); }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
         }
 
@@ -111,7 +117,7 @@ namespace CharacterCustomization
                     Console.WriteLine("\n=== Character Gender ===");
                     ShowGenderOptions();
                     Console.Write("Enter choice: ");
-                    characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Non-Binary", "Other" }));
+                    characterInfo.SetGender(CheckForErrors.checkInput(Console.ReadLine(), new[] { "Male", "Female", "Gay", "Lesbian", "Non-Binary", "Other" }));
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
                 catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -151,7 +157,7 @@ namespace CharacterCustomization
                     Console.Write("Enter choice: ");
                     characterInfo.SetFarmerType(CheckForErrors.checkInput(Console.ReadLine(), new[]
                     {
-                    "Crop Farmer", "Livestock Farmer", "Mixed Farmer", "Organic Farmer", "Aquaculture Farmer"
+                    "Mixed/General Farmer", "Livestock Farmer", "Grain Farmer", "Vegetable Farmer", "Fruit Farmer"
                 }));
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -182,8 +188,10 @@ namespace CharacterCustomization
         {
             Console.WriteLine("(a) Male");
             Console.WriteLine("(b) Female");
-            Console.WriteLine("(c) Non-Binary");
-            Console.WriteLine("(d) Other");
+            Console.WriteLine("(c) Gay");
+            Console.WriteLine("(d) Lesbian");
+            Console.WriteLine("(e) Non-Binary");
+            Console.WriteLine("(f) Others");
         }
         public void ShowRaceOptions()
         {
@@ -195,11 +203,11 @@ namespace CharacterCustomization
         }
         public void ShowFarmerTypeOptions()
         {
-            Console.WriteLine("(a) Crop Farmer");
+            Console.WriteLine("(a) Mixed/General Farmer");
             Console.WriteLine("(b) Livestock Farmer");
-            Console.WriteLine("(c) Mixed Farmer");
-            Console.WriteLine("(d) Organic Farmer");
-            Console.WriteLine("(e) Aquaculture Farmer");
+            Console.WriteLine("(c) Grain Farmer");
+            Console.WriteLine("(d) Vegetable Farmer");
+            Console.WriteLine("(e) Fruit Farmer");
         }
 
         public string getName() { return characterInfo.GetName(); }

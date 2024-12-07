@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CharacterCreationSystem
 {
     public class MainMenu
@@ -13,67 +14,57 @@ namespace CharacterCreationSystem
                 "CREDITS",
                 "EXIT"
             };
-            int selectedIndex = 0;
-            ConsoleKey key;
             bool isRunning = true;
+
             while (isRunning)
             {
                 Console.Clear();
                 Console.WriteLine("=== Main Menu ===");
                 for (int i = 0; i < menuItems.Length; i++)
                 {
-                    if (i == selectedIndex)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine(">>> " + menuItems[i]);
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("" + menuItems[i]);
-                    }
+                    Console.WriteLine($"({(char)('a' + i)}) {menuItems[i]}");
                 }
-                key = Console.ReadKey(true).Key;
-                if (key == ConsoleKey.UpArrow)
+
+                Console.Write("input: ");
+                string input = Console.ReadLine().ToLower();
+
+                switch (input)
                 {
-                    selectedIndex = (selectedIndex == 0) ? menuItems.Length - 1 : selectedIndex - 1;
-                }
-                else if (key == ConsoleKey.DownArrow)
-                {
-                    selectedIndex = (selectedIndex == menuItems.Length - 1) ? 0 : selectedIndex + 1;
-                }
-                else if (key == ConsoleKey.Enter)
-                {
-                    Console.Clear();
-                    if (selectedIndex == 0)
-                    {
+                    case "a":
+                        Console.Clear();
                         NewGame newGame = new NewGame();
                         newGame.CreateCharacter();
-                    }
-                    else if (selectedIndex == 1)
-                    {
+                        break;
+                    case "b":
+                        Console.Clear();
                         Console.WriteLine("Load Game not implemented yet.");
-                    }
-                    else if (selectedIndex == 2)
-                    {
+                        Console.WriteLine("Press any key to return to the main menu...");
+                        Console.ReadKey();
+                        break;
+                    case "c":
+                        Console.Clear();
                         CampaignMode campaignMode = new CampaignMode();
                         campaignMode.DisplayStory();
-                    }
-                    else if (selectedIndex == 3)
-                    {
+                        break;
+                    case "d":
+                        Console.Clear();
                         Credits credits = new Credits();
                         credits.ShowCredits();
-                    }
-                    else if (selectedIndex == 4)
-                    {
+                        break;
+                    case "e":
+                        Console.Clear();
                         Console.WriteLine("Exiting the program. Goodbye!");
-                        Console.ReadKey();
                         isRunning = false;
-                    }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        Console.WriteLine("Press any key to return to the main menu...");
+                        Console.ReadKey();
+                        break;
                 }
             }
         }
+
         public static void Main(string[] args)
         {
             DisplayMainMenu();
