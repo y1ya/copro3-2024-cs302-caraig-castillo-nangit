@@ -28,6 +28,8 @@ namespace CharacterCreationSystem
         CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
         CustomAttributes customAttributes = new CustomAttributes();
         CustomAppearance customAppearance = new CustomAppearance();
+        CharacterTitle characterTitle = new CharacterTitle();
+        CharacterEmotionalState emotionalState = new CharacterEmotionalState();
         public void CreateCharacter()
         {
             Console.Clear();
@@ -56,6 +58,9 @@ namespace CharacterCreationSystem
             chardetails.dexterity = customAttributes.GetDexterity();
             chardetails.intelligence = customAttributes.GetIntelligence();
 
+            string assignedTitle = characterTitle.AssignTitle(chardetails);
+            string emotionalStateResult = emotionalState.GetEmotionalState();
+
             Console.Clear();
             Console.WriteLine("\n\n\t===== Character Summary =====");
             showCharacterDetail();
@@ -66,6 +71,12 @@ namespace CharacterCreationSystem
             Console.WriteLine("\n\t=== Appearance Details ===");
             customAppearance.showDetailAppearance();
             showCharacterDetail(chardetails.accessories, chardetails.clothes);
+
+            Console.WriteLine($"\n\t=== Character Emotional State ===");
+            Console.WriteLine($"Your emotional state is: {emotionalStateResult}");
+
+            Console.WriteLine("\n\t=== Character Title ===");
+            Console.WriteLine(assignedTitle);
             Console.WriteLine("\nCharacter creation complete! Press any key to return to the main menu...");
             Console.ReadKey();
         }
