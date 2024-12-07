@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CharacterCreationSystem;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Xml.Linq;
@@ -50,7 +51,6 @@ namespace CharacterCustomization
         }
         public void CustomizeInfo()
         {
-            Console.WriteLine("\n=== Customize Character Info ===");
             SetName();
             SetAge();
             SetGender();

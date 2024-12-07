@@ -2,24 +2,6 @@
 
 namespace CharacterCustomization
 {
-    /*public interface IShowOps
-    {
-        void showFaceShapeOps();
-        void showEyeShapeOps();
-        void showEyeColorOps();
-        void showEyebrowShapeOps();
-        void showNoseShapeOps();
-        void showMouthShapeOps();
-        void showEarShapeOps();
-        void showFacialHairOps();
-        void showHairstyleOps1();
-        void showHairstyleOps2();
-        void showHairstyleOps3();
-        void showHairstyleOps4();
-        void showAccessoryOps();
-        void showBodyTypeOps();
-        void showSkinToneOps();
-    }*/
     public class Appearance
     {
         private string faceShape;
@@ -98,7 +80,7 @@ namespace CharacterCustomization
             showSkinToneOps showskintoneops = new showSkinToneOps();
 
             string hairstyle11 = "", hairstyle22 = "", hairstyle33 = "", hairstyle44 = "";
-
+            
             Console.WriteLine("\n=== Character Custom Apperance ===");
             if (string.IsNullOrEmpty(appearance.getFaceShape()))
             {

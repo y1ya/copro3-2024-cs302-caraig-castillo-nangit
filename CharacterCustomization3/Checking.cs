@@ -12,6 +12,14 @@ namespace CharacterCustomization
         public abstract void showOps();
     }
 
+    public abstract class IntroduceGame
+    {
+        public virtual void Introduce()
+        {
+            Console.WriteLine("Welcome to the Character Creation Menu!\n");
+        }
+    }
+
     public class CheckForErrors
     {
         public static string checkInput(string input, string[] choose)

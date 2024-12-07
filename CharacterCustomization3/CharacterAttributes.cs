@@ -40,31 +40,28 @@ namespace CharacterCustomization
             dexterity = 0;
             intelligence = 0;
         }
-        public string GetPositiveEffect() => positiveEffect;
-        public string GetNegativeEffect() => negativeEffect;
-        public string GetTools() => tools;
-        public string GetAccessories() => accessories;
-        public string GetClothes() => clothes;
-
-        public int GetStrength() => strength;
-        public int GetLuck() => luck;
-        public int GetSpeed() => speed;
-        public int GetEndurance() => endurance;
-        public int GetDexterity() => dexterity;
-        public int GetIntelligence() => intelligence;
-
-        public void SetPositiveEffect(string effect) => positiveEffect = effect;
-        public void SetNegativeEffect(string effect) => negativeEffect = effect;
-        public void SetTools(string tools) => this.tools = tools;
-        public void SetAccessories(string accessories) => this.accessories = accessories;
-        public void SetClothes(string clothes) => this.clothes = clothes;
-
-        public void SetStrength(int value) => strength = value;
-        public void SetLuck(int value) => luck = value;
-        public void SetSpeed(int value) => speed = value;
-        public void SetEndurance(int value) => endurance = value;
-        public void SetDexterity(int value) => dexterity = value;
-        public void SetIntelligence(int value) => intelligence = value;
+        public string GetPositiveEffect() { return positiveEffect; }
+        public string GetNegativeEffect() { return negativeEffect; }
+        public string GetTools() { return tools; }
+        public string GetAccessories() { return accessories; }
+        public string GetClothes() { return clothes; }
+        public int GetStrength() { return strength; }
+        public int GetLuck() { return luck; }
+        public int GetSpeed() { return speed; }
+        public int GetEndurance() { return endurance; }
+        public int GetDexterity() { return dexterity; }
+        public int GetIntelligence() { return intelligence; }
+        public void SetPositiveEffect(string effect) { positiveEffect = effect; }
+        public void SetNegativeEffect(string effect) { negativeEffect = effect; }
+        public void SetTools(string tools) { this.tools = tools; }
+        public void SetAccessories(string accessories) { this.accessories = accessories; }
+        public void SetClothes(string clothes) { this.clothes = clothes; }
+        public void SetStrength(int value) { strength = value; }
+        public void SetLuck(int value) { luck = value; }
+        public void SetSpeed(int value) { speed = value; }
+        public void SetEndurance(int value) { endurance = value; }
+        public void SetDexterity(int value) { dexterity = value; }
+        public void SetIntelligence(int value) { intelligence = value; }
     }    
 
     public class CustomAttributes : CheckForErrors, IShowOptionsAtt
@@ -77,7 +74,7 @@ namespace CharacterCustomization
             Console.WriteLine("\n=== Character Attributes ===");
             AllocateStats();
 
-            if (string.IsNullOrEmpty(attributes.GetPositiveEffect()))
+            while (attributes.GetPositiveEffect() == "None")
             {
                 try
                 {
@@ -86,8 +83,6 @@ namespace CharacterCustomization
                     "Energy Boost - Increases stamina by 20%",
                     "Speed Increase - Performs tasks 20% faster",
                     "Enhanced Harvest - Increases yield by 20%",
-                    "Luck Boost - Raises chance of rare events",
-                    "Pest Resistance - Reduces crop failure by 25%",
                     "Soil Fertility Boost - Speeds up crop growth by 20%",
                     "Animal Productivity - Animals produce 20% more goods"
                 });
@@ -97,12 +92,12 @@ namespace CharacterCustomization
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
 
-            if (string.IsNullOrEmpty(attributes.GetNegativeEffect()))
+            while (attributes.GetNegativeEffect() == "None")
             {
                 try
                 {
                     SetAttribute("Negative Effect", ShowNegativeEffectOptions, attributes.SetNegativeEffect, new[]
-                        {
+                    {
                     "Fatigue - Reduces stamina recovery",
                     "Sickness - Affects daily tasks",
                     "Crop Damage - Lowers crop yield",
@@ -116,13 +111,16 @@ namespace CharacterCustomization
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
 
-            if (string.IsNullOrEmpty(attributes.GetTools()))
+            while (attributes.GetTools() == "None")
             {
                 try
                 {
                     SetAttribute("Tools", ShowToolsOptions, attributes.SetTools, new[]
-                        {
-                    "Basic Tools", "Advanced Tools", "Specialized Tools", "Seasonal Tools"
+                    {
+                    "Basic Tools - Hoe, Shovel, Watering Can, Rake, Spade",
+                    "Advanced Tools - Scythe, Axe, Pickaxe, Sickle, Power Tiller",
+                    "Specialized Tools - Fertilizer, Bug Net, Pruning Shears, Sprinkler System, Soil Tester",
+                    "Seasonal Tools - Snow Shovel, Winter Coat, Shade Net, Ice Pick, Storm Shelter Equiqment"             
                 });
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -130,12 +128,12 @@ namespace CharacterCustomization
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
 
-            if (string.IsNullOrEmpty(attributes.GetAccessories()))
+            while (attributes.GetAccessories() == "None")
             {
                 try
                 {
                     SetAttribute("Accessories", ShowAccessoriesOptions, attributes.SetAccessories, new[]
-                        {
+                    {
                     "Storage Expansion Backpack", "Lucky Hoe", "Harvest Gloves", "Crop Analyzer", "Mechanical Shovel"
                 });
                 }
@@ -144,12 +142,12 @@ namespace CharacterCustomization
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
 
-            if (string.IsNullOrEmpty(attributes.GetClothes()))
+            while (attributes.GetClothes() == "None")
             {
                 try
                 {
                     SetAttribute("Clothes", ShowClothesOptions, attributes.SetClothes, new[]
-                        {
+                    {
                     "Classic Overalls", "Flannel Shirt and Jeans", "Wide-Brimmed Hat and Boots", "Straw Hat and Apron", "Farmer's Vest"
                 });
                 }
@@ -250,53 +248,69 @@ namespace CharacterCustomization
             }
         }
 
-        public void ShowPositiveEffectOptions() => DisplayOptions(new[]
-            {
-                "Energy Boost - Increases stamina by 20%",
-                "Speed Increase - Performs tasks 20% faster",
-                "Enhanced Harvest - Increases yield by 20%",
-                "Luck Boost - Raises chance of rare events",
-                "Pest Resistance - Reduces crop failure by 25%",
-                "Soil Fertility Boost - Speeds up crop growth by 20%",
-                "Animal Productivity - Animals produce 20% more goods"
-            });
-
-        public void ShowNegativeEffectOptions() => DisplayOptions(new[]
+        public void ShowPositiveEffectOptions()
         {
-                "Fatigue - Reduces stamina recovery",
-                "Sickness - Affects daily tasks",
-                "Crop Damage - Lowers crop yield",
-                "Animal Stress - Lowers animal productivity",
-                "Soil Degradation - Reduces soil fertility",
-                "Stress Build-Up - Affects character's overall performance"
-            });
+            DisplayOptions(new[] {
+            "Energy Boost - Increases stamina by 20%",
+            "Speed Increase - Performs tasks 20% faster",
+            "Enhanced Harvest - Increases yield by 20%",
+            "Luck Boost - Raises chance of rare events",
+            "Pest Resistance - Reduces crop failure by 25%",
+            "Soil Fertility Boost - Speeds up crop growth by 20%",
+            "Animal Productivity - Animals produce 20% more goods" });
+        }
 
-        public void ShowToolsOptions() => DisplayOptions(new[]
+        public void ShowNegativeEffectOptions()
         {
-                "Basic Tools", "Advanced Tools", "Specialized Tools", "Seasonal Tools"
-            });
+            DisplayOptions(new[] {
+            "Fatigue - Reduces stamina recovery",
+            "Sickness - Affects daily tasks",
+            "Crop Damage - Lowers crop yield",
+            "Animal Stress - Lowers animal productivity",
+            "Soil Degradation - Reduces soil fertility",
+            "Stress Build-Up - Affects character's overall performance" });
+        }
 
-        public void ShowAccessoriesOptions() => DisplayOptions(new[]
+        public void ShowToolsOptions()
         {
-                "Storage Expansion Backpack", "Lucky Hoe", "Harvest Gloves", "Crop Analyzer", "Mechanical Shovel"
-            });
+            DisplayOptions(new[] {
+            "Basic Tools - Hoe, Shovel, Watering Can, Rake, Spade",
+            "Advanced Tools - Scythe, Axe, Pickaxe, Sickle, Power Tiller",
+            "Specialized Tools - Fertilizer, Bug Net, Pruning Shears, Sprinkler System, Soil Tester",
+            "Seasonal Tools - Snow Shovel, Winter Coat, Shade Net, Ice Pick, Storm Shelter Equiqment" });
+        }
 
-        public void ShowClothesOptions() => DisplayOptions(new[]
-        {
-                "Classic Overalls", "Flannel Shirt and Jeans", "Wide-Brimmed Hat and Boots", "Straw Hat and Apron", "Farmer's Vest"
-        });
+        public void ShowAccessoriesOptions() 
+        { 
+            DisplayOptions(new[] { 
+                "Storage Expansion Backpack", 
+                "Lucky Hoe", 
+                "Harvest Gloves", 
+                "Crop Analyzer", 
+                "Mechanical Shovel" }); 
+        }
 
-        public string getPositiveEffect() { return attributes.GetPositiveEffect(); }
-        public string getNegativeEffect() { return attributes.GetNegativeEffect(); }
-        public string getTools() { return attributes.GetTools(); }
-        public string getAccessory() {  return attributes.GetAccessories(); }
-        public string getClothes() { return attributes.GetClothes(); }
-        public int getStrength() {  return attributes.GetStrength(); }
-        public int getLuck() {  return attributes.GetLuck(); }
-        public int getSpeed() { return attributes.GetSpeed(); }
-        public int getEndurance() {  return attributes.GetEndurance(); }
-        public int getDexterity() {  return attributes.GetDexterity(); }
-        public int getIntelligence() { return attributes.GetIntelligence(); }
+        public void ShowClothesOptions() 
+        { 
+            DisplayOptions(new[] { 
+                "Classic Overalls", 
+                "Flannel Shirt and Jeans", 
+                "Wide-Brimmed Hat and Boots", 
+                "Straw Hat and Apron", 
+                "Farmer's Vest" }); 
+        }
+
+        public string GetPositiveEffect() { return attributes.GetPositiveEffect(); }
+        public string GetNegativeEffect() { return attributes.GetNegativeEffect(); }
+        public string GetTools() { return attributes.GetTools(); }
+        public string GetAccessory() { return attributes.GetAccessories(); }
+        public string GetClothes() { return attributes.GetClothes(); }
+        public int GetStrength() { return attributes.GetStrength(); }
+        public int GetLuck() { return attributes.GetLuck(); }
+        public int GetSpeed() { return attributes.GetSpeed(); }
+        public int GetEndurance() { return attributes.GetEndurance(); }
+        public int GetDexterity() { return attributes.GetDexterity(); }
+        public int GetIntelligence() { return attributes.GetIntelligence(); }
 
     }
 }
