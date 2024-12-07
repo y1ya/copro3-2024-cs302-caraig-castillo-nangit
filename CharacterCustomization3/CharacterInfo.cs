@@ -61,18 +61,22 @@ namespace CharacterCustomization
         {
             while (string.IsNullOrEmpty(characterInfo.GetName()))
             {
-                Console.WriteLine("\n=== Character Name ===");
-                ShowNameOptions();
-                Console.Write("Enter Name: ");
-                string input = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(input) && input.Length >= 3 && input.Length <= 16)
+                try
                 {
-                    characterInfo.SetName(input);
+                    Console.WriteLine("\n=== Character Name ===");
+                    ShowNameOptions();
+                    Console.Write("Enter Name: ");
+                    string input = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(input) && input.Length >= 3 && input.Length <= 16)
+                    {
+                        characterInfo.SetName(input);
+                    }
+                    else
+                    {
+                        throw new NamingException("Name must be 3-16 characters long.");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Name must be 3-16 characters long.");
-                }
+                catch (NamingException ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
         }
 

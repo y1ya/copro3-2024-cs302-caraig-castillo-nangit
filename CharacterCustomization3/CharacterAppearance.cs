@@ -175,8 +175,8 @@ namespace CharacterCustomization
             if (hairstyle22.Equals(""))
             {
                 GetValidatedInput(
-                    "Character Hairstyle(Color)",
-                    new[] { "Black", "Brown", "Red", "Blonde", "Gray", "Platinum", "Pink" },
+                    "Character Hairstyle(Length)",
+                    new[] { "Short", "Medium", "Long", "Very Long", "Bald" },
                     appearance.setHairstyle,
                     showHairstyleOps2
                 );
