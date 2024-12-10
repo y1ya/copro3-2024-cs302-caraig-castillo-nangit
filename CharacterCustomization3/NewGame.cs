@@ -25,6 +25,7 @@ namespace CharacterCreationSystem
     }
     public class NewGame : IntroduceGame
     {
+        MainMenu menu = new MainMenu();
         CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
         CustomAttributes customAttributes = new CustomAttributes();
         CustomAppearance customAppearance = new CustomAppearance();

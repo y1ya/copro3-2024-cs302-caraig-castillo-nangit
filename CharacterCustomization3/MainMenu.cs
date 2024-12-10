@@ -5,6 +5,7 @@ namespace CharacterCreationSystem
 {
     public class MainMenu
     {
+        public static SqlConnection con;
         public static void DisplayMainMenu()
         {
             string[] menuItems =
@@ -68,17 +69,18 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Characters.mdf"";Integrated Security=True";
-            SqlConnection con = new SqlConnection(databaseConnect);
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True";
+            con = new SqlConnection(databaseConnect);
 
             try
             {
-                Console.WriteLine("Connecting to Database...");
+                //Console.WriteLine("Connecting to Database...");
                 con.Open();
-                Console.WriteLine("Connected Successfully");
+                //Console.WriteLine("Connected Successfully");
+                DisplayMainMenu();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
-            DisplayMainMenu();
+            
         }
     }
 }
