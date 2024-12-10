@@ -7,7 +7,6 @@ namespace CharacterCreationSystem
         private string title;
         private string description;
 
-
         public string AssignTitle(CharacterDetails characterDetails)
         {
             if (characterDetails.farmerType == "Grain Farmer" || characterDetails.farmerType == "Vegetable Farmer")

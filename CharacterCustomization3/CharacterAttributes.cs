@@ -134,7 +134,11 @@ namespace CharacterCustomization
                 {
                     SetAttribute("Accessories", ShowAccessoriesOptions, attributes.SetAccessories, new[]
                     {
-                    "Storage Expansion Backpack", "Lucky Hoe", "Harvest Gloves", "Crop Analyzer", "Mechanical Shovel"
+                        "Storage Expansion Backpack", 
+                        "Lucky Hoe", 
+                        "Harvest Gloves", 
+                        "Crop Analyzer", 
+                        "Mechanical Shovel"
                 });
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -148,7 +152,11 @@ namespace CharacterCustomization
                 {
                     SetAttribute("Clothes", ShowClothesOptions, attributes.SetClothes, new[]
                     {
-                    "Classic Overalls", "Flannel Shirt and Jeans", "Wide-Brimmed Hat and Boots", "Straw Hat and Apron", "Farmer's Vest"
+                        "Classic Overalls", 
+                        "Flannel Shirt and Jeans", 
+                        "Wide-Brimmed Hat and Boots", 
+                        "Straw Hat and Apron", 
+                        "Farmer's Vest"
                 });
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }

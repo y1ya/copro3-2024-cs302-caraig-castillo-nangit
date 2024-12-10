@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 
 namespace CharacterCreationSystem
 {
@@ -18,7 +19,7 @@ namespace CharacterCreationSystem
 
             while (isRunning)
             {
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("=== Main Menu ===");
                 for (int i = 0; i < menuItems.Length; i++)
                 {
@@ -67,6 +68,16 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Characters.mdf"";Integrated Security=True";
+            SqlConnection con = new SqlConnection(databaseConnect);
+
+            try
+            {
+                Console.WriteLine("Connecting to Database...");
+                con.Open();
+                Console.WriteLine("Connected Successfully");
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
             DisplayMainMenu();
         }
     }

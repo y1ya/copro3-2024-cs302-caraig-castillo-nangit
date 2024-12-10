@@ -12,7 +12,7 @@ namespace CharacterCreationSystem
                             "    As your journey begins, your character—customizable in every detail from name to appearance—arrives in this tranquil yet vibrant countryside,",
                             "    ready to build their legacy. Striya is a land of diverse regions and traditions, shaped by the unique traits of its settlers.",
                             "    Each character race brings distinct advantages, influencing your farming experience. Will you master the fields of fruits and vegetables,",
-                            "    aathrive in livestock cultivation, or pursue the arid lands with unwavering resolve?\n",
+                            "    athrive in livestock cultivation, or pursue the arid lands with unwavering resolve?\n",
                             "    As you plant your roots in the community, every decision carves your story.",
                             "    Will you be a Mixed Farmer, exploring all trades, or a Livestock Specialist nurturing productive animals?",
                             "    Perhaps you’ll become a Grain Master or Fruit Farmer with unparalleled yields.",
