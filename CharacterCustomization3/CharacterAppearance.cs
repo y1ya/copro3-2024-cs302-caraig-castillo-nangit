@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CharacterCreationSystem;
+using System;
+using System.Data.SqlClient;
 
 namespace CharacterCustomization
 {
@@ -64,6 +66,7 @@ namespace CharacterCustomization
     public class CustomAppearance : CheckForErrors
     {
         private Appearance appearance;
+        private string updateQueryString;
         public CustomAppearance() { appearance = new Appearance("", "", "", "", "", "", "", "", "", "", "", ""); }
         public void CustomizeAppearance()
         {
@@ -231,6 +234,42 @@ namespace CharacterCustomization
                     showskintoneops.showOps
                 );
             }
+
+            try
+            {
+                updateQueryString = "UPDATE dbo.CharacterDetails SET " +
+                    "Character_FaceShape = @FaceShape, " +
+                    "Character_EyeShape = @EyeShape, " +
+                    "Character_EyeColor = @EyeColor, " +
+                    "Character_EyebrowShape = @EyebrowShape, " +
+                    "Character_NoseShape = @NoseShape, " +
+                    "Character_MouthShape = @MouthShape, " +
+                    "Character_EarShape = @EarShape, " +
+                    "Character_FacialHair = @FacialHair, " +
+                    "Character_Hairstyle = @Hairstyle, " +
+                    "Character_Accessory = @Accessory, " +
+                    "Character_BodyType = @BodyType, " +
+                    "Character_SkinTone = @SkinTone " +
+                    "WHERE Character_Id = @CharacterId";
+
+                SqlCommand updateData1 = new SqlCommand(updateQueryString, MainMenu.con);
+                updateData1.Parameters.AddWithValue("@FaceShape", appearance.getFaceShape());
+                updateData1.Parameters.AddWithValue("@EyeShape", appearance.getEyeShape());
+                updateData1.Parameters.AddWithValue("@EyeColor", appearance.getEyeColor());
+                updateData1.Parameters.AddWithValue("@EyebrowShape", appearance.getEyebrowShape());
+                updateData1.Parameters.AddWithValue("@NoseShape", appearance.getNoseShape());
+                updateData1.Parameters.AddWithValue("@MouthShape", appearance.getMouthShape());
+                updateData1.Parameters.AddWithValue("@EarShape", appearance.getEarShape());
+                updateData1.Parameters.AddWithValue("@FacialHair", appearance.getFacialHair());
+                updateData1.Parameters.AddWithValue("@Hairstyle", appearance.getHairstyle());
+                updateData1.Parameters.AddWithValue("@Accessory", appearance.getAccessory());
+                updateData1.Parameters.AddWithValue("@BodyType", appearance.getBodyType());
+                updateData1.Parameters.AddWithValue("@SkinTone", appearance.getSkinTone());
+                updateData1.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
+                updateData1.ExecuteNonQuery();
+                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Appearance).");
+            }
+            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
 
         public void GetValidatedInput(string prompt, string[] options, Action<string> setAction, Action showOptions)

@@ -1,5 +1,6 @@
 ﻿using CharacterCustomization;
 using System;
+using System.Data.SqlClient;
 
 namespace CharacterCreationSystem
 {
@@ -25,18 +26,15 @@ namespace CharacterCreationSystem
     }
     public class NewGame : IntroduceGame
     {
-        MainMenu menu = new MainMenu();
         CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
         CustomAttributes customAttributes = new CustomAttributes();
         CustomAppearance customAppearance = new CustomAppearance();
-        CharacterTitle characterTitle = new CharacterTitle();
-        CharacterEmotionalState emotionalState = new CharacterEmotionalState();
         public void CreateCharacter()
         {
             Console.Clear();
             CharacterDetails chardetails = new CharacterDetails();
             Introduce();
-            
+
             customcharacterInfo.CustomizeInfo();
             customAttributes.CustomizeAttribute();
             customAppearance.CustomizeAppearance();
@@ -59,7 +57,10 @@ namespace CharacterCreationSystem
             chardetails.dexterity = customAttributes.GetDexterity();
             chardetails.intelligence = customAttributes.GetIntelligence();
 
+            CharacterTitle characterTitle = new CharacterTitle();
             string assignedTitle = characterTitle.AssignTitle(chardetails);
+
+            CharacterEmotionalState emotionalState = new CharacterEmotionalState();
             string emotionalStateResult = emotionalState.GetEmotionalState();
 
             Console.Clear();

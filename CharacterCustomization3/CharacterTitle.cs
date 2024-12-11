@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CharacterCustomization;
+using System;
+using System.Data.SqlClient;
 
 namespace CharacterCreationSystem
 {
@@ -46,7 +48,27 @@ namespace CharacterCreationSystem
                 description = "A hardworking and dedicated farmer, committed to cultivating the land.";
             }
 
+            MakeTheTitleToDatabase();
             return $"{"Title: ", -20}{title} \n{"Description:", -19} {description}";
+        }
+
+        public void MakeTheTitleToDatabase()
+        {
+            Console.WriteLine("Adding Title and its Description.");
+            try
+            {
+                string updateQueryString = "UPDATE dbo.CharacterDetails SET " +
+                    "Character_Title = @Title, " +
+                    "Character_TitleDescription = @TitleDesc " +
+                    "WHERE Character_Id = @CharacterId";
+
+                SqlCommand updateData = new SqlCommand(updateQueryString, MainMenu.con);
+                updateData.Parameters.AddWithValue("@Title", this.title);
+                updateData.Parameters.AddWithValue("@TitleDesc", this.description);
+                updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
+                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Title)");
+            }
+            catch (Exception e) { Console.WriteLine("==Error: " + e.Message); }
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CharacterCustomization;
+using System;
 
 namespace CharacterCreationSystem
 {
-    public class CharacterEmotionalState
+    public class CharacterEmotionalState : CheckForErrors
     {
         public string GetEmotionalState()
         {
@@ -85,10 +86,5 @@ namespace CharacterCreationSystem
             }
             return result;
         }
-    }
-
-    public class InvalidResponseException : Exception
-    {
-        public InvalidResponseException(string message) : base(message) { }
     }
 }

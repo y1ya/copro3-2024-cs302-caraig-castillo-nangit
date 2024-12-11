@@ -60,4 +60,9 @@ namespace CharacterCustomization
     {
         public OnlyLetterException(string message) : base(message) { }
     }
+
+    public class InvalidResponseException : Exception
+    {
+        public InvalidResponseException(string message) : base(message) { }
+    }
 }

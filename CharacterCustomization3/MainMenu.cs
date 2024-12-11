@@ -20,14 +20,14 @@ namespace CharacterCreationSystem
 
             while (isRunning)
             {
-                //Console.Clear();
+                Console.Clear();
                 Console.WriteLine("=== Main Menu ===");
                 for (int i = 0; i < menuItems.Length; i++)
                 {
                     Console.WriteLine($"({(char)('a' + i)}) {menuItems[i]}");
                 }
 
-                Console.Write("input: ");
+                Console.Write("Input: ");
                 string input = Console.ReadLine().ToLower();
 
                 switch (input)
@@ -69,7 +69,9 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True";
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;
+                Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";
+                Integrated Security=True";
             con = new SqlConnection(databaseConnect);
 
             try
