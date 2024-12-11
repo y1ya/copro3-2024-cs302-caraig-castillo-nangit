@@ -6,10 +6,10 @@ namespace CharacterCreationSystem
 {
     public class CharacterTitle
     {
-        private string title;
-        private string description;
+        public string title;
+        public string description;
 
-        public string AssignTitle(CharacterDetails characterDetails)
+        public void AssignTitle(CharacterDetails characterDetails)
         {
             if (characterDetails.farmerType == "Grain Farmer" || characterDetails.farmerType == "Vegetable Farmer")
             {
@@ -47,28 +47,6 @@ namespace CharacterCreationSystem
                 title = "Farmer";
                 description = "A hardworking and dedicated farmer, committed to cultivating the land.";
             }
-
-            MakeTheTitleToDatabase();
-            return $"{"Title: ", -20}{title} \n{"Description:", -19} {description}";
-        }
-
-        public void MakeTheTitleToDatabase()
-        {
-            Console.WriteLine("Adding Title and its Description.");
-            try
-            {
-                string updateQueryString = "UPDATE dbo.CharacterDetails SET " +
-                    "Character_Title = @Title, " +
-                    "Character_TitleDescription = @TitleDesc " +
-                    "WHERE Character_Id = @CharacterId";
-
-                SqlCommand updateData = new SqlCommand(updateQueryString, MainMenu.con);
-                updateData.Parameters.AddWithValue("@Title", this.title);
-                updateData.Parameters.AddWithValue("@TitleDesc", this.description);
-                updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
-                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Title)");
-            }
-            catch (Exception e) { Console.WriteLine("==Error: " + e.Message); }
         }
     }
 }

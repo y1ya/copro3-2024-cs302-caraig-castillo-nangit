@@ -16,6 +16,9 @@ namespace CharacterCreationSystem
         public string tools;
         public string accessories;
         public string clothes;
+        public string title;
+        public string titleDescription;
+        public string emotionalState;
 
         public int strength;
         public int luck;
@@ -29,6 +32,8 @@ namespace CharacterCreationSystem
         CustomCharacterInfo customcharacterInfo = new CustomCharacterInfo();
         CustomAttributes customAttributes = new CustomAttributes();
         CustomAppearance customAppearance = new CustomAppearance();
+        CharacterEmotionalState emotionalState = new CharacterEmotionalState();
+        CharacterTitle characterTitle = new CharacterTitle();
         public void CreateCharacter()
         {
             Console.Clear();
@@ -38,6 +43,8 @@ namespace CharacterCreationSystem
             customcharacterInfo.CustomizeInfo();
             customAttributes.CustomizeAttribute();
             customAppearance.CustomizeAppearance();
+            characterTitle.AssignTitle(chardetails);
+            emotionalState.GetEmotionalState();
 
             chardetails.name = customcharacterInfo.getName();
             chardetails.age = customcharacterInfo.getAge();
@@ -49,19 +56,34 @@ namespace CharacterCreationSystem
             chardetails.tools = customAttributes.GetTools();
             chardetails.accessories = customAttributes.GetAccessory();
             chardetails.clothes = customAttributes.GetClothes();
+            chardetails.title = characterTitle.title;
+            chardetails.titleDescription = characterTitle.description;
+            chardetails.emotionalState = emotionalState.EmotionalState;
 
             chardetails.strength = customAttributes.GetStrength();
             chardetails.luck = customAttributes.GetLuck();
             chardetails.speed = customAttributes.GetSpeed();
             chardetails.endurance = customAttributes.GetEndurance();
             chardetails.dexterity = customAttributes.GetDexterity();
-            chardetails.intelligence = customAttributes.GetIntelligence();
+            chardetails.intelligence = customAttributes.GetIntelligence();    
+            
+            try
+            {
+                string updateQueryString = "UPDATE dbo.CharacterDetails SET " +
+                    "Character_Title = @Title, " +
+                    "Character_TitleDescription = @TitleDesc, " +
+                    "Character_EmotionalState = @EmotionalState " +
+                    "WHERE Character_Id = @CharacterId";
 
-            CharacterTitle characterTitle = new CharacterTitle();
-            string assignedTitle = characterTitle.AssignTitle(chardetails);
-
-            CharacterEmotionalState emotionalState = new CharacterEmotionalState();
-            string emotionalStateResult = emotionalState.GetEmotionalState();
+                SqlCommand updateData = new SqlCommand(updateQueryString, MainMenu.con);
+                updateData.Parameters.AddWithValue("@Title", chardetails.title);
+                updateData.Parameters.AddWithValue("@TitleDesc", chardetails.titleDescription);
+                updateData.Parameters.AddWithValue("@EmotionalState", chardetails.emotionalState);
+                updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
+                updateData.ExecuteNonQuery();
+                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Title and Description, and Emotional State).");
+            }
+            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
 
             Console.Clear();
             Console.WriteLine("\n\n\t===== Character Summary =====");
@@ -75,10 +97,11 @@ namespace CharacterCreationSystem
             showCharacterDetail(chardetails.accessories, chardetails.clothes);
 
             Console.WriteLine($"\n\t=== Character Emotional State ===");
-            Console.WriteLine($"Your emotional state is: {emotionalStateResult}");
+            Console.WriteLine($"Your emotional state is: {chardetails.emotionalState}");
 
             Console.WriteLine("\n\t=== Character Title ===");
-            Console.WriteLine(assignedTitle);
+            Console.WriteLine($"{"Title:",-20} {chardetails.title}");
+            Console.WriteLine($"{"Description:",-19} {chardetails.titleDescription}");
             Console.WriteLine("\nCharacter creation complete! Press any key to return to the main menu...");
             Console.ReadKey();
         }
