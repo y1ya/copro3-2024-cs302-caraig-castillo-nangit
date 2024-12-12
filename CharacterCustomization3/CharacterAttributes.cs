@@ -200,7 +200,7 @@ namespace CharacterCustomization
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
 
-        public void DisplayAttributes()
+        public void DisplayStatsOnly()
         {
             Console.WriteLine($"{"Strength:",-20} {attributes.GetStrength()}");
             Console.WriteLine($"{"Luck:",-20} {attributes.GetLuck()}");
@@ -208,11 +208,6 @@ namespace CharacterCustomization
             Console.WriteLine($"{"Endurance:",-20} {attributes.GetEndurance()}");
             Console.WriteLine($"{"Dexterity:",-20} {attributes.GetDexterity()}");
             Console.WriteLine($"{"Intelligence:",-20} {attributes.GetIntelligence()}");
-            Console.WriteLine($"{"Positive Effect:",-20} {attributes.GetPositiveEffect()}");
-            Console.WriteLine($"{"Negative Effect:",-20} {attributes.GetNegativeEffect()}");
-            Console.WriteLine($"{"Tools:",-20} {attributes.GetTools()}");
-            Console.WriteLine($"{"Accessories:",-20} {attributes.GetAccessories()}");
-            Console.WriteLine($"{"Clothes:",-20} {attributes.GetClothes()}");
         }
 
         private void AllocateStats()
@@ -223,6 +218,10 @@ namespace CharacterCustomization
 
             while (pointsRemaining > 0)
             {
+                Console.WriteLine($"\nYou have {pointsRemaining} points remaining.");
+                Console.WriteLine("\nCurrent Stats:");
+                DisplayStatsOnly();
+
                 Console.WriteLine($"\nYou have {pointsRemaining} points remaining.");
                 attributes.SetStrength(attributes.GetStrength() + AllocateAttributePoints("Strength", ref pointsRemaining));
                 if (pointsRemaining <= 0) break;

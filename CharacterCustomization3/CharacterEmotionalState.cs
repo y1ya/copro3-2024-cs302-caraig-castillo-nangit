@@ -14,31 +14,31 @@ namespace CharacterCreationSystem
 
             // Question 1
             score += AskQuestion(
-                "Do you prioritize planting crops that are sustainable and beneficial to the local environment? (Yes/No)",
+                "Do you prioritize planting crops that are sustainable and beneficial to the local environment? (a: Yes, b: No)",
                 1, -1
             );
 
             // Question 2
             score += AskQuestion(
-                "Do you take time to help NPCs (non-playable characters) with their requests or quests, even if it slows your farm progress? (Yes/No)",
+                "Do you take time to help NPCs (non-playable characters) with their requests or quests, even if it slows your farm progress? (a: Yes, b: No)",
                 1, -1
             );
 
             // Question 3
             score += AskQuestion(
-                "Do you hoard resources for personal gain instead of sharing them with struggling NPCs or friends in the game? (Yes/No)",
+                "Do you hoard resources for personal gain instead of sharing them with struggling NPCs or friends in the game? (a: Yes, b: No)",
                 -1, 1
             );
 
             // Question 4
             score += AskQuestion(
-                "Do you steal crops or items from neighboring farms or NPCs to get ahead? (Yes/No)",
+                "Do you steal crops or items from neighboring farms or NPCs to get ahead? (a: Yes, b: No)",
                 -1, 1
             );
 
             // Question 5
             score += AskQuestion(
-                "Do you prioritize planting rare, high-profit crops over those that the village needs to thrive? (Yes/No)",
+                "Do you prioritize planting rare, high-profit crops over those that the village needs to thrive? (a: Yes, b: No)",
                 -1, 1
             );
 
@@ -62,28 +62,28 @@ namespace CharacterCreationSystem
                     Console.WriteLine(question);
                     string response = Console.ReadLine().ToLower();
 
-                    if (response == "yes")
+                    if (response == "a")
                     {
                         result = goodScore;
                         validInput = true;
                     }
-                    else if (response == "no")
+                    else if (response == "b")
                     {
                         result = evilScore;
                         validInput = true;
                     }
                     else
                     {
-                        throw new InvalidResponseException("Invalid response. Please answer with 'yes' or 'no'.");
+                        throw new InvalidResponseException("Invalid response. Please answer with 'a' for Yes or 'b' for No.");
                     }
                 }
                 catch (InvalidResponseException ex)
                 {
-                    Console.WriteLine("Error: " + ex.Message);
+                    Console.WriteLine("==Error: " + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Unexpected error: " + ex.Message);
+                    Console.WriteLine("==Unexpected error: " + ex.Message);
                 }
             }
             return result;

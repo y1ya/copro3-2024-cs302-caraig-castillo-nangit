@@ -13,7 +13,7 @@ namespace CharacterCreationSystem
             Console.WriteLine("Castillo, Harry");
             Console.WriteLine("Nangit, Mart Emmanuel");
             Console.WriteLine("\nThank you for using the Character Creation System.");
-            Console.WriteLine("\nPress any key to return to the main menu...");
+            Console.WriteLine("\nPress any key to return to the Main Menu...");
             Console.ReadKey();
         }
     }

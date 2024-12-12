@@ -85,7 +85,6 @@ namespace CharacterCreationSystem
             }
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
 
-            Console.Clear();
             Console.WriteLine("\n\n\t===== Character Summary =====");
             showCharacterDetail();
             Console.WriteLine("\n\t=== Character Stats ===");
@@ -137,7 +136,7 @@ namespace CharacterCreationSystem
         {
             base.Introduce();
 
-            Console.WriteLine("\n===== NEW GAME: Create Your Character =====");
+            Console.WriteLine("===== NEW GAME: Create Your Character =====");
         }
     }
 }
