@@ -104,6 +104,8 @@ namespace CharacterCreationSystem
             Console.WriteLine($"{"Description:",-19} {chardetails.titleDescription}");
             Console.WriteLine("\nCharacter creation complete! Press any key to return to the main menu...");
             Console.ReadKey();
+
+
         }
 
         public void showCharacterDetail()

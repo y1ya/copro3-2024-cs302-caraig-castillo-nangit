@@ -26,10 +26,7 @@ namespace CharacterCustomization
         {
             if (!Regex.IsMatch(input, @"^[a-zA-Z\s]+$")) { throw new OnlyLetterException("Must be One Letter"); }
 
-            if (input.Length == 1)
-            {
-                return chosenOps(Char.Parse(input.ToLower()), choose);
-            }
+            if (input.Length == 1) { return chosenOps(Char.Parse(input.ToLower()), choose); }
             else { throw new OnlyOneCharacter("Must be one character only"); }
         }
 

@@ -13,6 +13,7 @@ namespace CharacterCreationSystem
                 "NEW GAME",
                 "LOAD GAME",
                 "CAMPAIGN MODE",
+                "DISPLAY CHARACTERS",
                 "CREDITS",
                 "EXIT"
             };
@@ -50,10 +51,15 @@ namespace CharacterCreationSystem
                         break;
                     case "d":
                         Console.Clear();
+                        DisplayCharacters displayCharacters = new DisplayCharacters();
+                        displayCharacters.DisplayCharactersDatabase();
+                        break;
+                    case "e":
+                        Console.Clear();
                         Credits credits = new Credits();
                         credits.ShowCredits();
                         break;
-                    case "e":
+                    case "f":
                         Console.Clear();
                         Console.WriteLine("Exiting the program. Goodbye!");
                         isRunning = false;
@@ -71,7 +77,8 @@ namespace CharacterCreationSystem
         {
             string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;
                 Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";
-                Integrated Security=True";
+                Integrated Security=True;
+                MultipleActiveResultSets=True";
             con = new SqlConnection(databaseConnect);
 
             try
