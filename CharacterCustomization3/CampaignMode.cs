@@ -8,11 +8,11 @@ namespace CharacterCreationSystem
             Console.Clear();
             Console.WriteLine("=== CAMPAIGN MODE: The Harvest of Legacy ===\n");
             string[] story = {
-                            "\nIn a world where lush farmlands stretch as far as the eye can see, you step into the role of an aspiring farmer in the enchanting land of Striya.",
+                            "\n  In a world where lush farmlands stretch as far as the eye can see, you step into the role of an aspiring farmer in the enchanting land of Striya.",
                             "    As your journey begins, your character—customizable in every detail from name to appearance—arrives in this tranquil yet vibrant countryside,",
                             "    ready to build their legacy. Striya is a land of diverse regions and traditions, shaped by the unique traits of its settlers.",
                             "    Each character race brings distinct advantages, influencing your farming experience. Will you master the fields of fruits and vegetables,",
-                            "    athrive in livestock cultivation, or pursue the arid lands with unwavering resolve?\n",
+                            "    and thrive in livestock cultivation, or pursue the arid lands with unwavering resolve?\n",
                             "    As you plant your roots in the community, every decision carves your story.",
                             "    Will you be a Mixed Farmer, exploring all trades, or a Livestock Specialist nurturing productive animals?",
                             "    Perhaps you’ll become a Grain Master or Fruit Farmer with unparalleled yields.",
@@ -24,12 +24,34 @@ namespace CharacterCreationSystem
                             "    As you progress, unlock new skills, master irrigation, animal care, or crafting innovative tools.",
                             "    Will your legacy be one of community and goodwill, or dominance and ambition? The harvest in Striya isn’t just crops; it’s the story you sow.\n"
                         };
-            foreach (string line in story)
+            bool skipText = false;
+
+            Console.WriteLine("Press 'S' to skip the story and display the full text at once.");
+            Console.WriteLine("Press 'C' to continue displaying the story line-by-line with effect.\n");
+            string choice = Console.ReadLine()?.ToLower();
+
+            if (choice == "s")
             {
-                effect(line, 10);
-                Console.WriteLine();
+                skipText = true;
             }
-            Console.WriteLine("Press any key to return to the main menu...");
+
+            if (skipText)
+            {
+                foreach (string line in story)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            else
+            {
+                foreach (string line in story)
+                {
+                    effect(line, 10);
+                    Console.WriteLine();
+                }
+            }
+
+            Console.WriteLine("\nPress any key to return to the main menu...");
             Console.ReadKey();
         }
         private void effect(string line, int delay)
