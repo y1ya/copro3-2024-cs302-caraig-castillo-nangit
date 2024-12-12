@@ -13,7 +13,6 @@ namespace CharacterCreationSystem
                 "NEW GAME",
                 "LOAD GAME",
                 "CAMPAIGN MODE",
-                "DISPLAY CHARACTERS",
                 "CREDITS",
                 "EXIT"
             };
@@ -40,9 +39,8 @@ namespace CharacterCreationSystem
                         break;
                     case "b":
                         Console.Clear();
-                        Console.WriteLine("Load Game not implemented yet.");
-                        Console.WriteLine("Press any key to return to the main menu...");
-                        Console.ReadKey();
+                        DisplayCharacters displayCharacters = new DisplayCharacters();
+                        displayCharacters.DisplayCharactersDatabase();
                         break;
                     case "c":
                         Console.Clear();
@@ -51,15 +49,10 @@ namespace CharacterCreationSystem
                         break;
                     case "d":
                         Console.Clear();
-                        DisplayCharacters displayCharacters = new DisplayCharacters();
-                        displayCharacters.DisplayCharactersDatabase();
-                        break;
-                    case "e":
-                        Console.Clear();
                         Credits credits = new Credits();
                         credits.ShowCredits();
                         break;
-                    case "f":
+                    case "e":
                         Console.Clear();
                         Console.WriteLine("Exiting the program. Goodbye!");
                         isRunning = false;
