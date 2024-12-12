@@ -1,10 +1,13 @@
-﻿using System;
+﻿using CharacterCustomization;
+using System;
 
 namespace CharacterCreationSystem
 {
-    public class CharacterEmotionalState
+    public class CharacterEmotionalState : CheckForErrors
     {
-        public string GetEmotionalState()
+        public int score;
+        public string EmotionalState;
+        public void GetEmotionalState()
         {
             int score = 0;
             Console.WriteLine("\n=== Character Emotional State ===");
@@ -40,11 +43,11 @@ namespace CharacterCreationSystem
             );
 
             if (score >= 2)
-                return "Good";
+                this.EmotionalState = "Good";
             else if (score <= -2)
-                return "Evil";
+                this.EmotionalState = "Evil";
             else
-                return "Neutral";
+                this.EmotionalState = "Neutral";
         }
 
         private int AskQuestion(string question, int goodScore, int evilScore)
@@ -85,10 +88,5 @@ namespace CharacterCreationSystem
             }
             return result;
         }
-    }
-
-    public class InvalidResponseException : Exception
-    {
-        public InvalidResponseException(string message) : base(message) { }
     }
 }

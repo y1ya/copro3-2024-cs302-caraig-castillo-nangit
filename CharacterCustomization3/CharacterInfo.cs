@@ -1,5 +1,6 @@
 ﻿using CharacterCreationSystem;
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
 using System.Xml.Linq;
@@ -45,6 +46,9 @@ namespace CharacterCustomization
     public class CustomCharacterInfo : CheckForErrors, IShowOptionsInfo
     {
         private CharacterInfo characterInfo;
+        private string insertQueryString;
+        public static int Id = GenerateRandomID();
+        
         public CustomCharacterInfo()
         {
             characterInfo = new CharacterInfo("", "", "", "", "");
@@ -57,6 +61,16 @@ namespace CharacterCustomization
             SetGender();
             SetRace();
             SetFarmerType();
+
+            try {
+                insertQueryString = "INSERT INTO dbo.CharacterDetails (Character_Id, Character_Name, Character_Age, " +
+                    "Character_Gender, Character_Race, Character_FarmerType) VALUES('" +
+                    Id + "', '" + getName() + "', '" + getAge() + "', '" + getGender() + "', '" + getRace() + "', '" + getFarmerType() + "')";
+                SqlCommand insertData = new SqlCommand(insertQueryString, MainMenu.con);
+                insertData.ExecuteNonQuery();
+                Console.WriteLine("--Added to Database Succesfully");
+            }
+            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
         private void SetName()
         {
@@ -72,6 +86,7 @@ namespace CharacterCustomization
                     {
                         throw new Exception("Name cannot be empty or whitespace.");
                     }
+
                     if (input.Length < 3 || input.Length > 16)
                     {
                         throw new Exception("Name must be 3-16 characters long.");
@@ -208,6 +223,27 @@ namespace CharacterCustomization
             Console.WriteLine("(c) Grain Farmer");
             Console.WriteLine("(d) Vegetable Farmer");
             Console.WriteLine("(e) Fruit Farmer");
+        }
+
+        public static int GenerateRandomID()
+        {
+            Random random = new Random();
+            int newId;
+
+            while (true)
+            {
+                newId = random.Next(100000, 1000000);
+
+                string checkQuery = "SELECT COUNT(*) FROM dbo.CharacterDetails WHERE Character_Id = @Character_Id";
+                SqlCommand checkCommand = new SqlCommand(checkQuery, MainMenu.con);
+                checkCommand.Parameters.AddWithValue("@Character_Id", newId);
+
+                int count = (int)checkCommand.ExecuteScalar();
+
+                if (count == 0) { break; }
+            }
+
+            return newId;
         }
 
         public string getName() { return characterInfo.GetName(); }

@@ -5,6 +5,7 @@ namespace CharacterCreationSystem
 {
     public class MainMenu
     {
+        public static SqlConnection con;
         public static void DisplayMainMenu()
         {
             string[] menuItems =
@@ -12,6 +13,7 @@ namespace CharacterCreationSystem
                 "NEW GAME",
                 "LOAD GAME",
                 "CAMPAIGN MODE",
+                "DISPLAY CHARACTERS",
                 "CREDITS",
                 "EXIT"
             };
@@ -19,14 +21,14 @@ namespace CharacterCreationSystem
 
             while (isRunning)
             {
-                //Console.Clear();
+                Console.Clear();
                 Console.WriteLine("=== Main Menu ===");
                 for (int i = 0; i < menuItems.Length; i++)
                 {
                     Console.WriteLine($"({(char)('a' + i)}) {menuItems[i]}");
                 }
 
-                Console.Write("input: ");
+                Console.Write("Input: ");
                 string input = Console.ReadLine().ToLower();
 
                 switch (input)
@@ -49,10 +51,15 @@ namespace CharacterCreationSystem
                         break;
                     case "d":
                         Console.Clear();
+                        DisplayCharacters displayCharacters = new DisplayCharacters();
+                        displayCharacters.DisplayCharactersDatabase();
+                        break;
+                    case "e":
+                        Console.Clear();
                         Credits credits = new Credits();
                         credits.ShowCredits();
                         break;
-                    case "e":
+                    case "f":
                         Console.Clear();
                         Console.WriteLine("Exiting the program. Goodbye!");
                         isRunning = false;
@@ -68,17 +75,21 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Characters.mdf"";Integrated Security=True";
-            SqlConnection con = new SqlConnection(databaseConnect);
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;
+                Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";
+                Integrated Security=True;
+                MultipleActiveResultSets=True";
+            con = new SqlConnection(databaseConnect);
 
             try
             {
-                Console.WriteLine("Connecting to Database...");
+                //Console.WriteLine("Connecting to Database...");
                 con.Open();
-                Console.WriteLine("Connected Successfully");
+                //Console.WriteLine("Connected Successfully");
+                DisplayMainMenu();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
-            DisplayMainMenu();
+            
         }
     }
 }

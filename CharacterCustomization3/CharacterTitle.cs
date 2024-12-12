@@ -1,13 +1,15 @@
-﻿using System;
+﻿using CharacterCustomization;
+using System;
+using System.Data.SqlClient;
 
 namespace CharacterCreationSystem
 {
     public class CharacterTitle
     {
-        private string title;
-        private string description;
+        public string title;
+        public string description;
 
-        public string AssignTitle(CharacterDetails characterDetails)
+        public void AssignTitle(CharacterDetails characterDetails)
         {
             if (characterDetails.farmerType == "Grain Farmer" || characterDetails.farmerType == "Vegetable Farmer")
             {
@@ -45,8 +47,6 @@ namespace CharacterCreationSystem
                 title = "Farmer";
                 description = "A hardworking and dedicated farmer, committed to cultivating the land.";
             }
-
-            return $"{"Title: ", -20}{title} \n{"Description:", -19} {description}";
         }
     }
 }

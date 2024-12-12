@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CharacterCreationSystem;
+using System;
+using System.Data.SqlClient;
 using System.Xml.Linq;
 
 namespace CharacterCustomization
@@ -67,6 +69,7 @@ namespace CharacterCustomization
     public class CustomAttributes : CheckForErrors, IShowOptionsAtt
     {
         private CharacterAttributes attributes;
+        private string updateQueryString;
         public CustomAttributes() { attributes = new CharacterAttributes(); }
 
         public void CustomizeAttribute()
@@ -163,6 +166,38 @@ namespace CharacterCustomization
                 catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
+
+            try
+            {
+                updateQueryString = "UPDATE dbo.CharacterDetails SET " + 
+                    "Positive_Effect = @PositiveEffect, " + 
+                    "Negative_Effect = @NegativeEffect, " + 
+                    "Character_Tools = @CharacterTools, " + 
+                    "Character_Accessories = @CharacterAccessories, " + 
+                    "Character_Strength = @Strength, " +
+                    "Character_Luck = @Luck, " + 
+                    "Character_Speed = @Speed, " +
+                    "Character_Endurance = @Endurance, " + 
+                    "Character_Dexterity = @Dexterity, " +
+                    "Character_Intelligence = @Intelligence " + 
+                    "WHERE Character_Id = @CharacterId";
+
+                SqlCommand updateData = new SqlCommand(updateQueryString, MainMenu.con);
+                updateData.Parameters.AddWithValue("@PositiveEffect", GetPositiveEffect());
+                updateData.Parameters.AddWithValue("@NegativeEffect", GetNegativeEffect());
+                updateData.Parameters.AddWithValue("@CharacterTools", GetTools());
+                updateData.Parameters.AddWithValue("@CharacterAccessories", GetAccessory());
+                updateData.Parameters.AddWithValue("@Strength", GetStrength());
+                updateData.Parameters.AddWithValue("@Luck", GetLuck());
+                updateData.Parameters.AddWithValue("@Speed", GetSpeed());
+                updateData.Parameters.AddWithValue("@Endurance", GetEndurance());
+                updateData.Parameters.AddWithValue("@Dexterity", GetDexterity());
+                updateData.Parameters.AddWithValue("@Intelligence", GetIntelligence());
+                updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
+                updateData.ExecuteNonQuery();
+                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Attributes)");
+            }
+            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
 
         public void DisplayAttributes()
