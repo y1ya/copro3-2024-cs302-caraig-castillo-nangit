@@ -81,7 +81,7 @@ namespace CharacterCreationSystem
                 updateData.Parameters.AddWithValue("@EmotionalState", chardetails.emotionalState);
                 updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
                 updateData.ExecuteNonQuery();
-                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Title and Description, and Emotional State).");
+                //Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Title and Description, and Emotional State).");
             }
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
 

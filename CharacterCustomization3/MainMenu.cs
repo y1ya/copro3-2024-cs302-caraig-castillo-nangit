@@ -75,10 +75,7 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;
-                Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";
-                Integrated Security=True;
-                MultipleActiveResultSets=True";
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True;MultipleActiveResultSets=True";
             con = new SqlConnection(databaseConnect);
 
             try

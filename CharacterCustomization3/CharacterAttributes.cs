@@ -195,7 +195,7 @@ namespace CharacterCustomization
                 updateData.Parameters.AddWithValue("@Intelligence", GetIntelligence());
                 updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
                 updateData.ExecuteNonQuery();
-                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Attributes)");
+                //Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Attributes)");
             }
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }

@@ -267,7 +267,7 @@ namespace CharacterCustomization
                 updateData1.Parameters.AddWithValue("@SkinTone", appearance.getSkinTone());
                 updateData1.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
                 updateData1.ExecuteNonQuery();
-                Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Appearance).");
+                //Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values (Appearance).");
             }
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }

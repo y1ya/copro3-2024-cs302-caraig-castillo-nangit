@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CharacterCreationSystem
 {
-    public class DisplayCharacters : NewGame
+    public class DisplayCharacters
     {
         public void DisplayCharactersDatabase()
         {

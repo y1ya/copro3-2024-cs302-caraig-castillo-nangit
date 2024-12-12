@@ -68,7 +68,7 @@ namespace CharacterCustomization
                     Id + "', '" + getName() + "', '" + getAge() + "', '" + getGender() + "', '" + getRace() + "', '" + getFarmerType() + "')";
                 SqlCommand insertData = new SqlCommand(insertQueryString, MainMenu.con);
                 insertData.ExecuteNonQuery();
-                Console.WriteLine("--Added to Database Succesfully");
+                //Console.WriteLine("--Added to Database Succesfully");
             }
             catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
