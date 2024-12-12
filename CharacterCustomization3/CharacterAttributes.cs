@@ -174,6 +174,7 @@ namespace CharacterCustomization
                     "Negative_Effect = @NegativeEffect, " + 
                     "Character_Tools = @CharacterTools, " + 
                     "Character_Accessories = @CharacterAccessories, " + 
+                    "Character_Clothes = @CharacterClothes, " +
                     "Character_Strength = @Strength, " +
                     "Character_Luck = @Luck, " + 
                     "Character_Speed = @Speed, " +
@@ -187,6 +188,7 @@ namespace CharacterCustomization
                 updateData.Parameters.AddWithValue("@NegativeEffect", GetNegativeEffect());
                 updateData.Parameters.AddWithValue("@CharacterTools", GetTools());
                 updateData.Parameters.AddWithValue("@CharacterAccessories", GetAccessory());
+                updateData.Parameters.AddWithValue("@CharacterClothes", GetClothes());
                 updateData.Parameters.AddWithValue("@Strength", GetStrength());
                 updateData.Parameters.AddWithValue("@Luck", GetLuck());
                 updateData.Parameters.AddWithValue("@Speed", GetSpeed());

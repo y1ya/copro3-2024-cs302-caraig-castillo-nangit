@@ -28,7 +28,7 @@ namespace CharacterCreationSystem
 
             Console.WriteLine("Press 'S' to skip the story and display the full text at once.");
             Console.WriteLine("Press 'C' to continue displaying the story line-by-line with effect.\n");
-            string choice = Console.ReadLine()?.ToLower();
+            string choice = Console.ReadLine().ToLower();
 
             if (choice == "s")
             {
