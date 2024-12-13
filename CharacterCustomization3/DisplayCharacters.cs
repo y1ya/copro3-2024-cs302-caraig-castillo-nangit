@@ -26,9 +26,19 @@ namespace CharacterCreationSystem
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                Console.WriteLine("Select a character to edit or delete:");
+                Console.WriteLine("Select a character to view or delete:");
                 Console.WriteLine("---------------------------------------------------");
+
                 int counter = 1;
+
+                if (!reader.HasRows)
+                {
+                    Console.WriteLine("No saved characters found in the database.");
+                    reader.Close();
+                    Console.WriteLine("Press any key to return to the main menu...");
+                    Console.ReadKey();
+                    return;
+                }
 
                 while (reader.Read())
                 {
@@ -63,7 +73,10 @@ namespace CharacterCreationSystem
                     catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
                 }
             }
-            catch (Exception ex) { Console.WriteLine("Error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
 
         private void HandleRowSelection(int selectedRow)
@@ -155,23 +168,23 @@ namespace CharacterCreationSystem
                         Console.Write("Input: ");
                         string action = Console.ReadLine();
 
-                        if (action == "1") 
+                        if (action == "1")
                         {
                             Console.WriteLine("Are you sure? \n(1) Yes \n(2) No");
                             Console.Write("Input: ");
                             string delete = Console.ReadLine();
                             if (delete.Equals("1")) { DeleteCharacter(characterId); }
-                            else if (delete.Equals("2")) 
+                            else if (delete.Equals("2"))
                             {
-                                Console.WriteLine("Going back to Main Menu...");
-                                Console.WriteLine("Press any key to proceed...");
+                                Console.WriteLine("\nGoing back to Main Menu...");
+                                Console.WriteLine("\nPress any key to proceed...");
                                 Console.ReadKey();
                             }
-                        } 
+                        }
                         else if (action == "2")
                         {
-                            Console.WriteLine("Going back to Main Menu...");
-                            Console.WriteLine("Press any key to proceed...");
+                            Console.WriteLine("\nGoing back to Main Menu...");
+                            Console.WriteLine("\nPress any key to proceed...");
                             Console.ReadKey();
                             MainMenu.DisplayMainMenu();
                         }
@@ -195,8 +208,8 @@ namespace CharacterCreationSystem
             {
                 int rowsAffected = command.ExecuteNonQuery();
 
-                if (rowsAffected > 0) 
-                { 
+                if (rowsAffected > 0)
+                {
                     Console.WriteLine("--Character deleted successfully.");
                     Console.WriteLine("Press any key to proceed...");
                     Console.ReadKey();

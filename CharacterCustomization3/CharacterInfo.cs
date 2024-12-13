@@ -183,6 +183,7 @@ namespace CharacterCustomization
 
         public void ShowDetailInfo()
         {
+            Console.WriteLine($"{"ID:",-15} {Id}");
             Console.WriteLine($"{"Name:",-15} {characterInfo.GetName()}");
             Console.WriteLine($"{"Age:",-15} {characterInfo.GetAge()}");
             Console.WriteLine($"{"Gender:",-15} {characterInfo.GetGender()}");
