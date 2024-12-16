@@ -6,7 +6,7 @@ namespace CharacterCreationSystem
     public class CharacterEmotionalState : CheckForErrors
     {
         public int score;
-        public string EmotionalState;
+        public bool? EmotionalState;
         public void GetEmotionalState()
         {
             int score = 0;
@@ -43,11 +43,17 @@ namespace CharacterCreationSystem
             );
 
             if (score >= 2)
-                this.EmotionalState = "Good";
+            {                
+                this.EmotionalState = true;
+            }
             else if (score <= -2)
-                this.EmotionalState = "Evil";
+            {
+                this.EmotionalState = false;
+            }
             else
-                this.EmotionalState = "Neutral";
+            {
+                this.EmotionalState = null;
+            }
         }
 
         private int AskQuestion(string question, int goodScore, int evilScore)

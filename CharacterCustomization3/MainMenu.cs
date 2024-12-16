@@ -16,7 +16,11 @@ namespace CharacterCreationSystem
                 "CREDITS",
                 "EXIT"
             };
+
+            int selectedIndex = 0;
+            ConsoleKey key;
             bool isRunning = true;
+
 
             while (isRunning)
             {
@@ -24,44 +28,58 @@ namespace CharacterCreationSystem
                 Console.WriteLine("=== Main Menu ===");
                 for (int i = 0; i < menuItems.Length; i++)
                 {
-                    Console.WriteLine($"({(char)('a' + i)}) {menuItems[i]}");
+                    if (i == selectedIndex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($">>> {menuItems[i]}");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"  {menuItems[i]}");
+                    }
                 }
 
-                Console.Write("Input: ");
-                string input = Console.ReadLine().ToLower();
+                key = Console.ReadKey(true).Key;
 
-                switch (input)
+                if (key == ConsoleKey.UpArrow)
                 {
-                    case "a":
-                        Console.Clear();
+                    selectedIndex = (selectedIndex == 0) ? menuItems.Length - 1 : selectedIndex - 1;
+                }
+                else if (key == ConsoleKey.DownArrow)
+                {
+                    selectedIndex = (selectedIndex == menuItems.Length - 1) ? 0 : selectedIndex + 1;
+                }
+                else if (key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    if (selectedIndex == 0)
+                    {
                         NewGame newGame = new NewGame();
                         newGame.CreateCharacter();
-                        break;
-                    case "b":
-                        Console.Clear();
+                    }
+                    else if (selectedIndex == 1)
+                    {
                         DisplayCharacters displayCharacters = new DisplayCharacters();
-                        displayCharacters.DisplayCharactersDatabase();
-                        break;
-                    case "c":
-                        Console.Clear();
+                        displayCharacters.LoadGameMenu();
+                    }
+                    else if (selectedIndex == 2)
+                    {
                         CampaignMode campaignMode = new CampaignMode();
                         campaignMode.DisplayStory();
-                        break;
-                    case "d":
-                        Console.Clear();
+                    }
+                    else if (selectedIndex == 3)
+                    {
                         Credits credits = new Credits();
                         credits.ShowCredits();
-                        break;
-                    case "e":
-                        Console.Clear();
+                    }
+                    else if (selectedIndex == 4)
+                    {
                         Console.WriteLine("Exiting the program. Goodbye!");
-                        isRunning = false;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option. Please try again.");
-                        Console.WriteLine("Press any key to return to the main menu...");
                         Console.ReadKey();
-                        break;
+                        isRunning = false;
+                        Environment.Exit(0);
+                    }
                 }
             }
         }
