@@ -69,7 +69,6 @@ namespace CharacterCustomization
     public class CustomAttributes : CheckForErrors, IShowOptionsAtt
     {
         private CharacterAttributes attributes;
-        private string updateQueryString;
         public CustomAttributes() { attributes = new CharacterAttributes(); }
 
         public void CustomizeAttribute()
@@ -83,11 +82,13 @@ namespace CharacterCustomization
                 {
                     SetAttribute("Positive Effect", ShowPositiveEffectOptions, attributes.SetPositiveEffect, new[]
                     {
-                    "Energy Boost - Increases stamina by 20%",
-                    "Speed Increase - Performs tasks 20% faster",
-                    "Enhanced Harvest - Increases yield by 20%",
-                    "Soil Fertility Boost - Speeds up crop growth by 20%",
-                    "Animal Productivity - Animals produce 20% more goods"
+                        "Energy Boost - Increases stamina by 20%",
+                        "Speed Increase - Performs tasks 20% faster",
+                        "Enhanced Harvest - Increases yield by 20%",
+                        "Luck Boost - Raises chance of rare events",
+                        "Pest Resistance - Reduces crop failure by 25%",
+                        "Soil Fertility Boost - Speeds up crop growth by 20%",
+                        "Animal Productivity - Animals produce 20% more goods"
                 });
                 }
                 catch (IndexOutOfRangeException ex) { Console.WriteLine("==Error: " + ex.Message); }
@@ -166,40 +167,6 @@ namespace CharacterCustomization
                 catch (OnlyLetterException ex) { Console.WriteLine("==Error: " + ex.Message); }
                 catch (OnlyOneCharacter ex) { Console.WriteLine("==Error: " + ex.Message); }
             }
-
-            try
-            {
-                updateQueryString = "UPDATE dbo.CharacterDetails SET " + 
-                    "Positive_Effect = @PositiveEffect, " + 
-                    "Negative_Effect = @NegativeEffect, " + 
-                    "Character_Tools = @CharacterTools, " + 
-                    "Character_Accessories = @CharacterAccessories, " + 
-                    "Character_Clothes = @CharacterClothes, " +
-                    "Character_Strength = @Strength, " +
-                    "Character_Luck = @Luck, " + 
-                    "Character_Speed = @Speed, " +
-                    "Character_Endurance = @Endurance, " + 
-                    "Character_Dexterity = @Dexterity, " +
-                    "Character_Intelligence = @Intelligence " + 
-                    "WHERE Character_Id = @CharacterId";
-
-                SqlCommand updateData = new SqlCommand(updateQueryString, MainMenu.con);
-                updateData.Parameters.AddWithValue("@PositiveEffect", GetPositiveEffect());
-                updateData.Parameters.AddWithValue("@NegativeEffect", GetNegativeEffect());
-                updateData.Parameters.AddWithValue("@CharacterTools", GetTools());
-                updateData.Parameters.AddWithValue("@CharacterAccessories", GetAccessory());
-                updateData.Parameters.AddWithValue("@CharacterClothes", GetClothes());
-                updateData.Parameters.AddWithValue("@Strength", GetStrength());
-                updateData.Parameters.AddWithValue("@Luck", GetLuck());
-                updateData.Parameters.AddWithValue("@Speed", GetSpeed());
-                updateData.Parameters.AddWithValue("@Endurance", GetEndurance());
-                updateData.Parameters.AddWithValue("@Dexterity", GetDexterity());
-                updateData.Parameters.AddWithValue("@Intelligence", GetIntelligence());
-                updateData.Parameters.AddWithValue("@CharacterId", CustomCharacterInfo.Id);
-                updateData.ExecuteNonQuery();
-                //Console.WriteLine("--Updated " + CustomCharacterInfo.Id + "'s values.(Attributes)");
-            }
-            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
 
         public void DisplayStatsOnly()

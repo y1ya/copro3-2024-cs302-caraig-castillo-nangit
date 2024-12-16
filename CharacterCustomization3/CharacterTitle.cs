@@ -27,7 +27,7 @@ namespace CharacterCreationSystem
                     description = "Renowned for an extraordinary connection with animals, ensuring their happiness and productivity.";
                 }
             }
-            else if (characterDetails.farmerType == "Harvesting Expertise" && characterDetails.tools == "Lucky Hoe")
+            else if (characterDetails.farmerType == "Harvest Gloves" || characterDetails.tools == "Lucky Hoe")
             {
                 title = "Harvest Master";
                 description = "A prominent figure in the farming world, celebrated for record-breaking harvests.";
@@ -36,11 +36,6 @@ namespace CharacterCreationSystem
             {
                 title = "Trailblazer";
                 description = "A pioneering farmer who seeks untapped opportunities in agriculture.";
-            }
-            else if (characterDetails.farmerType == "Soil Management" && (characterDetails.intelligence >= 2 || characterDetails.strength >= 2))
-            {
-                title = "Soil Engineer";
-                description = "Known for optimizing soil conditions for maximum productivity.";
             }
             else
             {

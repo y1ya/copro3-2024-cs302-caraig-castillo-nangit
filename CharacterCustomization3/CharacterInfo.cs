@@ -1,5 +1,6 @@
 ﻿using CharacterCreationSystem;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
@@ -17,13 +18,15 @@ namespace CharacterCustomization
     }
     public class CharacterInfo
     {
+        private int id;
         private string name;
         private string age;
         private string gender;
         private string race;
         private string farmerType;
-        public CharacterInfo(string name, string age, string gender, string race, string farmerType)
+        public CharacterInfo(int id, string name, string age, string gender, string race, string farmerType)
         {
+            this.id = id;
             this.name = name;
             this.age = age;
             this.gender = gender;
@@ -31,12 +34,14 @@ namespace CharacterCustomization
             this.farmerType = farmerType;
         }
 
+        public void SetId(int id) { this.id = id; }
         public void SetName(string name) { this.name = name; }
         public void SetAge(string age) { this.age = age; }
         public void SetGender(string gender) { this.gender = gender; }
         public void SetRace(string race) { this.race = race; }
         public void SetFarmerType(string farmerType) { this.farmerType = farmerType; }
 
+        public int GetId() { return id; }
         public string GetName() { return name; }
         public string GetAge() { return age; }
         public string GetGender() { return gender; }
@@ -46,12 +51,10 @@ namespace CharacterCustomization
     public class CustomCharacterInfo : CheckForErrors, IShowOptionsInfo
     {
         private CharacterInfo characterInfo;
-        private string insertQueryString;
-        public static int Id = GenerateRandomID();
         
         public CustomCharacterInfo()
         {
-            characterInfo = new CharacterInfo("", "", "", "", "");
+            characterInfo = new CharacterInfo(0, "", "", "", "", "");
         }
         public void CustomizeInfo()
         {
@@ -61,16 +64,6 @@ namespace CharacterCustomization
             SetGender();
             SetRace();
             SetFarmerType();
-
-            try {
-                insertQueryString = "INSERT INTO dbo.CharacterDetails (Character_Id, Character_Name, Character_Age, " +
-                    "Character_Gender, Character_Race, Character_FarmerType) VALUES('" +
-                    Id + "', '" + getName() + "', '" + getAge() + "', '" + getGender() + "', '" + getRace() + "', '" + getFarmerType() + "')";
-                SqlCommand insertData = new SqlCommand(insertQueryString, MainMenu.con);
-                insertData.ExecuteNonQuery();
-                //Console.WriteLine("--Added to Database Succesfully");
-            }
-            catch (Exception ex) { Console.WriteLine("==Error: " + ex.Message); }
         }
         private void SetName()
         {
@@ -92,7 +85,15 @@ namespace CharacterCustomization
                         throw new Exception("Name must be 3-16 characters long.");
                     }
 
+                    if (!IsNameUnique(input))
+                    {
+                        Console.WriteLine("==Error: Name already exists in the database. Please enter a different name.");
+                        continue;
+                    }
+
                     characterInfo.SetName(input);
+                    characterInfo.SetId(GenerateRandomID());
+                    break;
                 }
                 catch (Exception ex)
                 {
@@ -183,7 +184,7 @@ namespace CharacterCustomization
 
         public void ShowDetailInfo()
         {
-            Console.WriteLine($"{"ID:",-15} {Id}");
+            Console.WriteLine($"{"ID:",-15} {GenerateRandomID()}");
             Console.WriteLine($"{"Name:",-15} {characterInfo.GetName()}");
             Console.WriteLine($"{"Age:",-15} {characterInfo.GetAge()}");
             Console.WriteLine($"{"Gender:",-15} {characterInfo.GetGender()}");
@@ -226,7 +227,7 @@ namespace CharacterCustomization
             Console.WriteLine("(e) Fruit Farmer");
         }
 
-        public static int GenerateRandomID()
+        public int GenerateRandomID()
         {
             Random random = new Random();
             int newId;
@@ -236,17 +237,49 @@ namespace CharacterCustomization
                 newId = random.Next(100000, 1000000);
 
                 string checkQuery = "SELECT COUNT(*) FROM dbo.CharacterDetails WHERE Character_Id = @Character_Id";
-                SqlCommand checkCommand = new SqlCommand(checkQuery, MainMenu.con);
-                checkCommand.Parameters.AddWithValue("@Character_Id", newId);
+                using (SqlCommand checkCommand = new SqlCommand(checkQuery, MainMenu.con))
+                {
+                    checkCommand.Parameters.AddWithValue("@Character_Id", newId);
 
-                int count = (int)checkCommand.ExecuteScalar();
+                    int count = (int)checkCommand.ExecuteScalar();
 
-                if (count == 0) { break; }
+                    if (count == 0) { break; }
+                }
             }
 
             return newId;
         }
 
+        private bool IsNameUnique(string name)
+        {
+            try
+            {
+                if (MainMenu.con.State == ConnectionState.Open)
+                {
+                    using (SqlCommand cleanupCommand = new SqlCommand("SET NOCOUNT ON;", MainMenu.con))
+                    {
+                        cleanupCommand.ExecuteNonQuery();
+                    }
+                }
+                string query = "SELECT COUNT(*) FROM dbo.CharacterDetails WHERE Character_Name = @Name";
+
+                using (SqlCommand checkNameCommand = new SqlCommand(query, MainMenu.con))
+                {
+                    checkNameCommand.Parameters.AddWithValue("@Name", name);
+
+                    int count = (int)checkNameCommand.ExecuteScalar();
+                    return count == 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("==Error checking name uniqueness: " + ex.Message);
+                return false;
+            }
+        }
+
+
+        public int getId() { return characterInfo.GetId(); }
         public string getName() { return characterInfo.GetName(); }
         public string getAge() { return characterInfo.GetAge(); }
         public string getGender() { return characterInfo.GetGender(); }
