@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace CharacterCreationSystem
 {
@@ -22,8 +23,13 @@ namespace CharacterCreationSystem
 
             while (true)
             {
+                string space = "===";
                 Console.Clear();
-                Console.WriteLine("=== LOAD GAME ===");
+                Console.Write(space);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(" LOAD GAME ");
+                Console.ResetColor();
+                Console.WriteLine(space);
 
                 for (int i = 0; i < menuItems.Length; i++)
                 {
@@ -64,14 +70,15 @@ namespace CharacterCreationSystem
                             DeleteCharacterMenu();
                             break;
                         case 3:
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Returning to main menu...");
+                            Console.ResetColor();
                             Thread.Sleep(500);
                             return;
                     }
                 }
             }
         }
-
 
         private void DisplayAllCharacters()
         {
@@ -89,8 +96,18 @@ namespace CharacterCreationSystem
                 SqlCommand command = new SqlCommand(query, MainMenu.con);
                 SqlDataReader reader = command.ExecuteReader();
 
+                string space = "===";
                 Console.Clear();
-                Console.WriteLine("=== View All Characters ===");
+
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("\n\n\n======================================================================================================================");
+                Console.ResetColor();
+
+                Console.Write(space);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(" View All Characters ");
+                Console.ResetColor();
+                Console.WriteLine($"{space}");
 
                 if (!reader.HasRows)
                 {
@@ -101,15 +118,22 @@ namespace CharacterCreationSystem
                     while (reader.Read())
                     {
                         DisplayCharacterDetails(reader);
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
-                        Console.ResetColor();
                     }
                 }
 
-                reader.Close();                
+                reader.Close();
 
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
+                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("======================================================================================================================");
+                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nPress any key to return to the menu...");
+                Console.ResetColor();
                 Console.ReadKey();
             }
             catch (Exception ex)
@@ -120,8 +144,18 @@ namespace CharacterCreationSystem
 
         private void ViewSpecificCharacter()
         {
+            string space = "===";
             Console.Clear();
-            Console.WriteLine("=== VIEW SPECIFIC CHARACTER! ===");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("======================================================================================================================");
+            Console.ResetColor();
+
+            Console.Write(space);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" VIEW SPECIFIC CHARACTER ");
+            Console.ResetColor();
+            Console.WriteLine(space);
 
             string query = "SELECT Character_Id, Character_Name FROM dbo.CharacterDetails ORDER BY Character_Number";
             List<(string CharacterId, string CharacterName)> characters = new List<(string, string)>();
@@ -151,7 +185,9 @@ namespace CharacterCreationSystem
                 {
                     Console.WriteLine("No characters found.");
                     reader.Close();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nPress any key to return to the menu...");
+                    Console.ResetColor();
                     Console.ReadKey();
                     return;
                 }
@@ -164,7 +200,16 @@ namespace CharacterCreationSystem
                 while (isSelecting)
                 {
                     Console.Clear();
-                    Console.WriteLine("=== SELECT A SPECIFIC CHARACTER ===");
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("======================================================================================================================");
+                    Console.ResetColor();
+
+                    Console.Write(space);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" SELECT A SPECIFIC CHARACTER ");
+                    Console.ResetColor();
+                    Console.WriteLine(space);                    
 
                     for (int i = 0; i < characters.Count; i++)
                     {
@@ -193,8 +238,18 @@ namespace CharacterCreationSystem
                     else if (keyInfo.Key == ConsoleKey.Enter)
                     {
                         Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("======================================================================================================================");
+                        Console.ResetColor();
+
                         string selectedCharacterId = characters[selectedIndex].CharacterId;
                         DisplayCharacterDetails(selectedCharacterId);
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
+
                         isSelecting = false;
                     }
                 }
@@ -204,11 +259,13 @@ namespace CharacterCreationSystem
                 Console.WriteLine("Error: " + ex.Message);
             }
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("======================================================================================================================");
             Console.ResetColor();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nPress any key to return to the menu...");
+            Console.ResetColor();
             Console.ReadKey();
         }
 
@@ -256,11 +313,12 @@ namespace CharacterCreationSystem
                     string title = reader["Character_Title"].ToString();
                     string titleDesc = reader["Character_TitleDescription"].ToString();
                     string emotionalState = reader["Character_EmotionalState"].ToString();
-                    string emotionalStateDisplay = emotionalState == "1" ? "Good" :
-                                          emotionalState == "0" ? "Evil" :
-                                          "Neutral";
+                    string emotionalStateDisplay =      
+                                                    emotionalState == "1" ? "Good" :
+                                                    emotionalState == "0" ? "Evil" :
+                                                                          "Neutral";
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
                     Console.ResetColor();
 
@@ -269,7 +327,7 @@ namespace CharacterCreationSystem
                     Console.Write(characterName);
                     Console.ResetColor();
                     Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Summary ===");
                     Console.ResetColor();
                     Console.WriteLine($"{"ID:",-20}{characterId}");
@@ -278,7 +336,7 @@ namespace CharacterCreationSystem
                     Console.WriteLine($"{"Race:",-20}{characterRace}");
                     Console.WriteLine($"{"Farmer Type:",-20}{characterFarmerType}");
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Attributes ===");
                     Console.ResetColor();
                     Console.WriteLine($"{"Positive Effect:",-20}{positiveEffect}");
@@ -287,7 +345,7 @@ namespace CharacterCreationSystem
                     Console.WriteLine($"{"Accessories:",-20}{characterAccessories}");
                     Console.WriteLine($"{"Clothes:",-20}{characterClothes}");
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Stats ===");
                     Console.ResetColor();
                     Console.WriteLine($"{"Strength:",-20}{strength}");
@@ -297,7 +355,7 @@ namespace CharacterCreationSystem
                     Console.WriteLine($"{"Dexterity:",-20}{dexterity}");
                     Console.WriteLine($"{"Intelligence:",-20}{intelligence}");
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Appearance ===");
                     Console.ResetColor();
                     Console.WriteLine($"{"Face Shape:",-20}{faceShape}");
@@ -313,16 +371,31 @@ namespace CharacterCreationSystem
                     Console.WriteLine($"{"Body Type:",-20}{bodyType}");
                     Console.WriteLine($"{"Skin Tone:",-20}{skinTone}");
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Title ===");
                     Console.ResetColor();
-                    Console.WriteLine($"{"Title:",-20}{title}");
+
+                    Console.Write($"{"Title:",-20}");
+                    if (title == "Crop Master") { Console.ForegroundColor = ConsoleColor.Green; }// Green for Crop Master
+                    else if (title == "Animal Caretaker") { Console.ForegroundColor = ConsoleColor.Yellow; }// Yellow for Animal Caretaker
+                    else if (title == "Harvest Master") { Console.ForegroundColor = ConsoleColor.Yellow; }// Golden Yellow for Harvest Master
+                    else if (title == "Trailblazer") { Console.ForegroundColor = ConsoleColor.Blue; }// Blue for Trailblazer
+                    else { Console.ForegroundColor = ConsoleColor.DarkGreen; }// Dark Green for Farmer
+                    Console.WriteLine($"{title}");
+                    Console.ResetColor();
+
                     Console.WriteLine($"{"Description:",-20}{titleDesc}");
 
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n=== Character Emotional State ===");
                     Console.ResetColor();
-                    Console.WriteLine($"{"Emotional State:",-20}{emotionalStateDisplay}\n");
+                    
+                    Console.Write($"{"Emotional State:",-20}");
+                    if (emotionalStateDisplay == "Good" || emotionalStateDisplay == "1") { Console.ForegroundColor = ConsoleColor.Green; }
+                    else if (emotionalStateDisplay == "Evil" || emotionalStateDisplay == "0") { Console.ForegroundColor = ConsoleColor.Red; }
+                    else { Console.ForegroundColor = ConsoleColor.Yellow; }
+                    Console.WriteLine($"{emotionalStateDisplay}\n");
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -336,7 +409,6 @@ namespace CharacterCreationSystem
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
 
         private void DisplayCharacterDetails(SqlDataReader reader)
         {
@@ -376,7 +448,7 @@ namespace CharacterCreationSystem
                    emotionalState == "0" ? "Evil" :
                                      "Neutral";
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
             Console.ResetColor();
 
@@ -385,7 +457,7 @@ namespace CharacterCreationSystem
             Console.Write(characterName);
             Console.ResetColor();
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Summary ===");
             Console.ResetColor();
             Console.WriteLine($"{"ID:",-20}{characterId}");
@@ -394,7 +466,7 @@ namespace CharacterCreationSystem
             Console.WriteLine($"{"Race:",-20}{characterRace}");
             Console.WriteLine($"{"Farmer Type:",-20}{characterFarmerType}");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Attributes ===");
             Console.ResetColor();
             Console.WriteLine($"{"Positive Effect:",-20}{positiveEffect}");
@@ -403,7 +475,7 @@ namespace CharacterCreationSystem
             Console.WriteLine($"{"Accessories:",-20}{characterAccessories}");
             Console.WriteLine($"{"Clothes:",-20}{characterClothes}");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Stats ===");
             Console.ResetColor();
             Console.WriteLine($"{"Strength:",-20}{strength}");
@@ -413,7 +485,7 @@ namespace CharacterCreationSystem
             Console.WriteLine($"{"Dexterity:",-20}{dexterity}");
             Console.WriteLine($"{"Intelligence:",-20}{intelligence}");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Appearance ===");
             Console.ResetColor();
             Console.WriteLine($"{"Face Shape:",-20}{faceShape}");
@@ -429,22 +501,41 @@ namespace CharacterCreationSystem
             Console.WriteLine($"{"Body Type:",-20}{bodyType}");
             Console.WriteLine($"{"Skin Tone:",-20}{skinTone}");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Title ===");
             Console.ResetColor();
-            Console.WriteLine($"{"Title:",-20}{title}");
+
+            Console.Write($"{"Title:",-20}");
+            if (title == "Crop Master") { Console.ForegroundColor = ConsoleColor.Green; }// Green for Crop Master
+            else if (title == "Animal Caretaker") { Console.ForegroundColor = ConsoleColor.Yellow; }// Yellow for Animal Caretaker
+            else if (title == "Harvest Master") { Console.ForegroundColor = ConsoleColor.Yellow; }// Golden Yellow for Harvest Master
+            else if (title == "Trailblazer") { Console.ForegroundColor = ConsoleColor.Blue; }// Blue for Trailblazer
+            else { Console.ForegroundColor = ConsoleColor.DarkGreen; }// Dark Green for Farmer
+            Console.WriteLine($"{title}");
+            Console.ResetColor();
             Console.WriteLine($"{"Description:",-20}{titleDesc}");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Character Emotional State ===");
             Console.ResetColor();
-            Console.WriteLine($"{"Emotional State:",-20}{emotionalStateDisplay}\n");
+            
+            Console.Write($"{"Emotional State:",-20}");
+            if (emotionalStateDisplay == "Good" || emotionalStateDisplay == "1") { Console.ForegroundColor = ConsoleColor.Green; }
+            else if (emotionalStateDisplay == "Evil" || emotionalStateDisplay == "0") { Console.ForegroundColor = ConsoleColor.Red; }
+            else { Console.ForegroundColor = ConsoleColor.Yellow; }
+            Console.WriteLine($"{emotionalStateDisplay}\n");
+            Console.ResetColor();
         }
 
         private void DeleteCharacterMenu()
         {
+            string space = "===";
             Console.Clear();
-            Console.WriteLine("=== DELETE CHARACTER! ===");
+            Console.Write(space);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(" DELETE CHARACTER ");
+            Console.ResetColor();
+            Console.WriteLine(space);
 
             string query = "SELECT Character_Id, Character_Name FROM dbo.CharacterDetails";
             List<(string CharacterId, string CharacterName)> characters = new List<(string, string)>();
@@ -473,7 +564,8 @@ namespace CharacterCreationSystem
                 else
                 {
                     Console.WriteLine("No characters found.");
-                    Console.WriteLine("\nPress any key to return to the menu...");
+                    Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("\nPress any key to return to the menu...");
+                    Console.ResetColor();
                     Console.ReadKey();
                     return;
                 }
@@ -486,7 +578,16 @@ namespace CharacterCreationSystem
                 while (isSelecting)
                 {
                     Console.Clear();
-                    Console.WriteLine("=== SELECT A CHARACTER TO DELETE! ===");
+
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("======================================================================================================================");
+                    Console.ResetColor();
+
+                    Console.Write(space);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" SELECT A CHARACTER TO DELETE ");
+                    Console.ResetColor();
+                    Console.WriteLine(space);
 
                     for (int i = 0; i < characters.Count; i++)
                     {
@@ -517,9 +618,14 @@ namespace CharacterCreationSystem
                         Console.Clear();
                         string selectedCharacterId = characters[selectedIndex].CharacterId;
                         string selectedCharacterName = characters[selectedIndex].CharacterName;
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("======================================================================================================================");
+                        Console.ResetColor();
+
                         DisplayCharacterDetails(selectedCharacterId);
 
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
                         Console.ResetColor();
 
@@ -535,12 +641,17 @@ namespace CharacterCreationSystem
                         if (confirm == "y")
                         {
                             DeleteCharacter(selectedCharacterId);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"\nCharacter {selectedCharacterName} deleted successfully.");
+                            Thread.Sleep(750);
+                            Console.ResetColor();
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("\nDeletion cancelled...");
-                            Thread.Sleep(500);
+                            Thread.Sleep(750);
+                            Console.ResetColor();
                         }
 
                         isSelecting = false;
@@ -552,7 +663,13 @@ namespace CharacterCreationSystem
                 Console.WriteLine("Error: " + ex.Message);
             }
 
-            Console.WriteLine("\nPress any key to return to the menu...");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\n======================================================================================================================\n");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ResetColor();
             Console.ReadKey();
         }
 

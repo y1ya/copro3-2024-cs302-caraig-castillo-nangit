@@ -56,20 +56,22 @@ namespace CharacterCreationSystem
             Introduce();
 
             customcharacterInfo.CustomizeInfo();
+            customAttributes.CustomizeAttribute();
+            customAppearance.CustomizeAppearance();
+            emotionalState.GetEmotionalState();
+
             chardetails.id = customcharacterInfo.getId();
             chardetails.name = customcharacterInfo.getName();
             chardetails.age = customcharacterInfo.getAge();
             chardetails.gender = customcharacterInfo.getGender();
             chardetails.race = customcharacterInfo.getRace();
             chardetails.farmerType = customcharacterInfo.getFarmerType();
-            
-
-            customAttributes.CustomizeAttribute();
             chardetails.positiveEffect = customAttributes.GetPositiveEffect();
             chardetails.negativeEffect = customAttributes.GetNegativeEffect();
             chardetails.tools = customAttributes.GetTools();
             chardetails.accessories = customAttributes.GetAccessory();
             chardetails.clothes = customAttributes.GetClothes();
+
             chardetails.strength = customAttributes.GetStrength();
             chardetails.luck = customAttributes.GetLuck();
             chardetails.speed = customAttributes.GetSpeed();
@@ -77,7 +79,6 @@ namespace CharacterCreationSystem
             chardetails.dexterity = customAttributes.GetDexterity();
             chardetails.intelligence = customAttributes.GetIntelligence();
 
-            customAppearance.CustomizeAppearance();
             chardetails.faceshape = customAppearance.getFaceShape();
             chardetails.eyeshape = customAppearance.getEyeShape();
             chardetails.eyecolor = customAppearance.getEyeColor();
@@ -93,8 +94,9 @@ namespace CharacterCreationSystem
 
             characterTitle.AssignTitle(ref chardetails);
 
-            emotionalState.GetEmotionalState();
             chardetails.emotionalState = emotionalState.EmotionalState;
+
+            
 
             try
             {
