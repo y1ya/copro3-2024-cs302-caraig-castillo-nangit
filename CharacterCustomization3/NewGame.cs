@@ -58,7 +58,6 @@ namespace CharacterCreationSystem
             customcharacterInfo.CustomizeInfo();
             customAttributes.CustomizeAttribute();
             customAppearance.CustomizeAppearance();
-            characterTitle.AssignTitle(chardetails);
             emotionalState.GetEmotionalState();
 
             chardetails.id = customcharacterInfo.getId();
@@ -73,6 +72,13 @@ namespace CharacterCreationSystem
             chardetails.accessories = customAttributes.GetAccessory();
             chardetails.clothes = customAttributes.GetClothes();
 
+            chardetails.strength = customAttributes.GetStrength();
+            chardetails.luck = customAttributes.GetLuck();
+            chardetails.speed = customAttributes.GetSpeed();
+            chardetails.endurance = customAttributes.GetEndurance();
+            chardetails.dexterity = customAttributes.GetDexterity();
+            chardetails.intelligence = customAttributes.GetIntelligence();
+
             chardetails.faceshape = customAppearance.getFaceShape();
             chardetails.eyeshape = customAppearance.getEyeShape();
             chardetails.eyecolor = customAppearance.getEyeColor();
@@ -86,16 +92,11 @@ namespace CharacterCreationSystem
             chardetails.bodytype = customAppearance.getBodyType();
             chardetails.skintone = customAppearance.getSkinTone();
 
-            chardetails.title = characterTitle.title;
-            chardetails.titleDescription = characterTitle.description;
+            characterTitle.AssignTitle(ref chardetails);
+
             chardetails.emotionalState = emotionalState.EmotionalState;
 
-            chardetails.strength = customAttributes.GetStrength();
-            chardetails.luck = customAttributes.GetLuck();
-            chardetails.speed = customAttributes.GetSpeed();
-            chardetails.endurance = customAttributes.GetEndurance();
-            chardetails.dexterity = customAttributes.GetDexterity();
-            chardetails.intelligence = customAttributes.GetIntelligence();
+            
 
             try
             {
@@ -148,7 +149,7 @@ namespace CharacterCreationSystem
                 insertCommand.Parameters.AddWithValue("@Title", chardetails.title);
                 insertCommand.Parameters.AddWithValue("@TitleDescription", chardetails.titleDescription);
                 insertCommand.Parameters.AddWithValue("@EmotionalState",
-    chardetails.emotionalState.HasValue ? (object)chardetails.emotionalState.Value : DBNull.Value);
+                chardetails.emotionalState.HasValue ? (object)chardetails.emotionalState.Value : DBNull.Value);
 
                 insertCommand.ExecuteNonQuery();
                 //Console.WriteLine("--Added to Database");
@@ -156,50 +157,77 @@ namespace CharacterCreationSystem
             catch (Exception ex) { Console.WriteLine("==Error inserting character into database: " + ex.Message); }
 
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n----------------------------------------------------------------------------------------------------------------------");
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("\n\n\t===== Character Summary =====");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\t===== Character Summary =====");
             Console.ResetColor();
             showCharacterDetail();
 
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n\t=== Character Stats ===");
             Console.ResetColor();
             showCharacterDetail(chardetails.strength, chardetails.luck, chardetails.speed, chardetails.endurance, chardetails.dexterity, chardetails.intelligence,
                 chardetails.positiveEffect, chardetails.negativeEffect, chardetails.tools);
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n\t=== Appearance Details ===");
             Console.ResetColor();
             customAppearance.showDetailAppearance();
             showCharacterDetail(chardetails.accessories, chardetails.clothes);
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"\n\t=== Character Emotional State ===");
             Console.ResetColor();
             if (chardetails.emotionalState.HasValue)
             {
                 if (chardetails.emotionalState.Value)
-                { Console.WriteLine("Your emotional state is: Good"); }
-                else { Console.WriteLine("Your emotional state is: Evil"); }
+                {
+                    Console.Write("Your emotional state is: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Good");
+                    Console.ResetColor();
+                }
+                else 
+                {
+                    Console.Write("Your emotional state is: ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Evil");
+                    Console.ResetColor();
+                }
             }
-            else { Console.WriteLine("Your emotional state is: Neutral"); }
+            else {  
+                Console.Write("Your emotional state is: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Neutral");
+                Console.ResetColor();
+            }
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n\t=== Character Title ===");
             Console.ResetColor();
-            Console.WriteLine($"{"Title:",-20} {chardetails.title}");
-            Console.WriteLine($"{"Description:",-20} {chardetails.titleDescription}");
+            Console.Write($"{"Title:",-20}");
+            
+            if (chardetails.title == "Crop Master") { Console.ForegroundColor = ConsoleColor.Green; }// Green for Crop Master
+            else if (chardetails.title == "Animal Caretaker") { Console.ForegroundColor = ConsoleColor.Yellow; }// Yellow for Animal Caretaker
+            else if (chardetails.title == "Harvest Master") { Console.ForegroundColor = ConsoleColor.Yellow; }// Golden Yellow for Harvest Master
+            else if (chardetails.title == "Trailblazer") { Console.ForegroundColor = ConsoleColor.Blue; }// Blue for Trailblazer
+            else { Console.ForegroundColor = ConsoleColor.DarkGreen; }// Dark Green for Farmer
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine($"{chardetails.title}");
+            Console.ResetColor();
+            Console.WriteLine($"{"Description:",-20}{chardetails.titleDescription}");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
             Console.ResetColor();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCharacter creation complete! Press any key to return to the main menu...");
+            Console.ResetColor();
             Console.ReadKey();
 
 
@@ -234,7 +262,13 @@ namespace CharacterCreationSystem
         {
             base.Introduce();
 
-            Console.WriteLine("===== NEW GAME: Create Your Character =====");
+            string space = "=====";
+
+            Console.Write(space);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" NEW GAME: Create Your Character ");
+            Console.ResetColor ();
+            Console.WriteLine(space);
         }
     }
 }
