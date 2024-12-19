@@ -92,7 +92,9 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\Emmanuel\Downloads\CharacterCustomization3-master\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True;MultipleActiveResultSets=True";
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;
+                Initial Catalog=""C:\Users\PC\source\repos\copro3-2024-cs302-caraig-castillo-nangit\Database\Characters.mdf"";
+                Integrated Security=True";
             con = new SqlConnection(databaseConnect);
 
             try
