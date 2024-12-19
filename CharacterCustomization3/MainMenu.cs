@@ -24,8 +24,14 @@ namespace CharacterCreationSystem
 
             while (isRunning)
             {
+                string space = "===";
                 Console.Clear();
-                Console.WriteLine("=== Main Menu ===");
+                Console.Write(space);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(" Main Menu ");
+                Console.ResetColor();
+                Console.WriteLine(space);
+
                 for (int i = 0; i < menuItems.Length; i++)
                 {
                     if (i == selectedIndex)
@@ -76,7 +82,7 @@ namespace CharacterCreationSystem
                     else if (selectedIndex == 4)
                     {
                         Console.WriteLine("Exiting the program. Goodbye!");
-                        Console.ReadKey();
+                        Thread.Sleep(500);
                         isRunning = false;
                         Environment.Exit(0);
                     }
@@ -86,7 +92,7 @@ namespace CharacterCreationSystem
 
         public static void Main(string[] args)
         {
-            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\PC\source\repos\CharacterCustomization3\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True;MultipleActiveResultSets=True";
+            string databaseConnect = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""C:\Users\Emmanuel\Downloads\CharacterCustomization3-master\CharacterCustomization3\Database\Characters.mdf"";Integrated Security=True;MultipleActiveResultSets=True";
             con = new SqlConnection(databaseConnect);
 
             try
@@ -101,3 +107,4 @@ namespace CharacterCreationSystem
         }
     }
 }
+

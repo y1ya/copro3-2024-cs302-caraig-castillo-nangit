@@ -16,7 +16,9 @@ namespace CharacterCustomization
     {
         public virtual void Introduce()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Welcome to the Character Creation Menu!\n");
+            Console.ResetColor();
         }
     }
 

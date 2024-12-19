@@ -7,8 +7,10 @@ namespace CharacterCreationSystem
     {
         public void DisplayStory()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Campaign Mode started...");
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
+            Console.ResetColor();
             Console.Clear();
 
             string[] paragraph1 = {
@@ -45,19 +47,23 @@ namespace CharacterCreationSystem
                 "Continue displaying the story line-by-line.", 
                 "Skip the rest of the story and display the full text at once.\n" 
             };
-
+            string space = "===";
             ConsoleKey key;
             do
             {
                 Console.Clear();
-                Console.WriteLine("=== CAMPAIGN MODE: The Harvest of Legacy ===\n");
-                Console.WriteLine("Use the arrow keys to navigate and press Enter to select an option:");
+                Console.Write(space);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(" CAMPAIGN MODE: The Harvest of Legacy ");
+                Console.ResetColor();
+                Console.WriteLine(space);
+                Console.WriteLine("\nUse the arrow keys to navigate and press Enter to select an option:");
 
                 for (int i = 0; i < options.Length; i++)
                 {
                     if (i == selectedOption)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"  >> {options[i]}");
                         Console.ResetColor();
                     }
@@ -85,10 +91,13 @@ namespace CharacterCreationSystem
 
         public void DisplayStoryWithChoice(string[] paragraph1, string[] paragraph2, string[] paragraph3)
         {
+            string space = "----------------------------------------------------------------------------------------------------------------------\n";
             Console.Clear();
 
             if (AskToSkipOrContinue())
             {
+                Console.WriteLine(space);
+                Thread.Sleep(300);
                 // Continue mode - display paragraph 1 line-by-line
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 DisplayParagraph(paragraph1);
@@ -96,6 +105,8 @@ namespace CharacterCreationSystem
 
                 if (AskToSkipOrContinue())
                 {
+                    Console.WriteLine(space);
+                    Thread.Sleep(250);
                     // Continue mode - display paragraph 2 line-by-line
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     DisplayParagraph(paragraph2);
@@ -103,6 +114,8 @@ namespace CharacterCreationSystem
 
                     if (AskToSkipOrContinue())
                     {
+                        Console.WriteLine(space);
+                        Thread.Sleep(250);
                         // Continue mode - display paragraph3 line-by-line
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         DisplayParagraph(paragraph3);
@@ -110,6 +123,8 @@ namespace CharacterCreationSystem
                     }
                     else
                     {
+                        Console.WriteLine(space);
+                        Thread.Sleep(250);
                         // Skip to full paragraph 3
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         DisplayFullParagraph(paragraph3);
@@ -118,6 +133,8 @@ namespace CharacterCreationSystem
                 }
                 else
                 {
+                    Console.WriteLine(space);
+                    Thread.Sleep(250);
                     // Skip to full paragraphs 2 and 3
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     DisplayFullParagraph(paragraph2);
@@ -127,6 +144,8 @@ namespace CharacterCreationSystem
             }
             else
             {
+                Console.WriteLine(space);
+                Thread.Sleep(250);
                 // Skip mode - display all paragraphs at once
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 DisplayFullParagraph(paragraph1);
@@ -135,9 +154,14 @@ namespace CharacterCreationSystem
                 Console.ResetColor();
             }
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("\n    The story is complete, but your adventure is only starting. How will your legacy unfold in the land of Striya?");
+            Console.WriteLine("\n    The story is complete, but your adventure is only starting. How will your legacy unfold in the land of Striya?\n");
             Console.ResetColor();
-            Console.WriteLine("\nPress any key to return to the main menu...");
+
+            Console.WriteLine(space);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ResetColor();
             Console.ReadKey();
         }
 
